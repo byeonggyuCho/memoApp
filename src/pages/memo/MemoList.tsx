@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, RouteComponentProps, Redirect, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import Sidebar, { SidebarTitle, SidebarBackButton } from '../../components/Sidebar';
 import Main from '../../components/Main';
@@ -10,11 +10,11 @@ import { List, ListItem } from '../../components/List';
 
 interface Props {
   memos: Memo[];
-  hasAddMemoBtn: boolean;
+  hasAddMemoBtn?: boolean;
 }
 
 const MemoListPage: React.FC<Props> = props => {
-  const { memos, hasAddMemoBtn } = props;
+  const { memos, hasAddMemoBtn = false } = props;
   const hasMemos = memos.length > 0;
 
   return (
@@ -41,19 +41,21 @@ const MemoList: React.FC<Props> = ({memos}) => {
     return content.substr(0, 15);
   }
 
+  const items = memos.map((memo, idx) =>
+    <ListItem key={idx} first={idx === 0}>
+      <Link to={`/memo/${memo.id}`}
+        style={{
+          textDecoration: 'none',
+          color: '#000'
+        }}>
+        {memoTitle(memo.content)}
+      </Link>
+    </ListItem>
+  )
+
   return (
     <List>
-      {memos.map((memo, idx) =>
-        <ListItem key={idx} first={idx === 0}>
-          <Link to={`/memo/${memo.id}`}
-            style={{
-              textDecoration: 'none',
-              color: '#000'
-            }}>
-            {memoTitle(memo.content)}
-          </Link>
-        </ListItem>
-      )}
+      {items}
     </List>
   )
 }

@@ -19,4 +19,4 @@ const configureStore = () => {
   return store
 }
 
-export default 
+export default configureStore
