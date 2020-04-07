@@ -16,7 +16,8 @@ module.exports = {
     // 개발 서버정보.
     devServer: {
         contentBase: './',
-        publicPath: '/dist' // 정적파일 위치.
+        publicPath: '/dist', // 정적파일 위치.
+        historyApiFallback: true,
       },
   
     resolve: {
@@ -27,7 +28,10 @@ module.exports = {
     module: {
       rules: [
         // .ts나 .tsx 확장자를 ts-loader가 트랜스파일 
-        { test: /\.tsx?$/, loader: "ts-loader" },
+        { 
+            test: /\.tsx?$/, 
+            loader: "ts-loader" 
+        },
       ]
     },
   };
