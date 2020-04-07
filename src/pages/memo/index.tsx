@@ -3,7 +3,7 @@ import { Link, Route, RouteComponentProps, Redirect, Switch } from 'react-router
 import Layout from '../../components/Layout';
 import Sidebar, { SidebarTitle, SidebarBackButton } from '../../components/Sidebar';
 import Main from '../../components/Main';
-import AddMemoBtn from '../../components/AddMenuBtn';
+import AddMemoBtn from '../../components/AddMenuButton';
 import MemoRouter from '../../routes/memo';
 import { Memo } from '../../models';
 import { fetchMemoList } from '../../apis';

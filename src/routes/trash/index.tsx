@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Switch, RouteComponentProps, Route, Redirect, withRouter } from 'react-router-dom';
-import RemovedMemo from '../../pages/trash/RemovedMemo';
+import { Switch, RouteComponentProps, Route, withRouter } from 'react-router-dom';
+import RemovedMemo from '../../pages/trash/DeletedMemo';
 
 const TrashRouter: React.FC<RouteComponentProps> = props => {
   const { match } = props;

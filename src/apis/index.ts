@@ -1,8 +1,11 @@
 import { Memo } from '../models';
 
 let store: Memo[] = [
-  { id: 2, content: '두번째 메모입니다.', createdAt: Date.now() },
-  { id: 1, content: '첫번재 메모입니다.', createdAt: Date.now() - 1 },
+  { id: 5, content: '다섯번째 메모입니다.', createdAt: Date.now() -1 },
+  { id: 4, content: '네번째 메모입니다.', createdAt: Date.now() -2},
+  { id: 3, content: '세번째 메모입니다.', createdAt: Date.now()-3},
+  { id: 2, content: '두번째 메모입니다.', createdAt: Date.now()- 4},
+  { id: 1, content: '첫번재 메모입니다.', createdAt: Date.now() - 5 },
 ]
 
 export const fetchMemoList = () => 

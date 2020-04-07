@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Switch, RouteComponentProps, Route, Redirect, withRouter } from 'react-router-dom';
-import AddMemo from '../../pages/memo/NewMemo';
+import { Switch, RouteComponentProps, Route, withRouter } from 'react-router-dom';
+import AddMemo from '../../pages/memo/AddMemo';
 import Memo from '../../pages/memo/Memo';
 
 const MemoRouter: React.FC<RouteComponentProps> = props => {

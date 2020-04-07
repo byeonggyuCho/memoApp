@@ -1,86 +1,40 @@
 import * as React from 'react';
-import { Link, RouteComponentProps, Redirect } from 'react-router-dom';
-import Layout from '../../components/Layout'
-import Sidebar, { SidebarTitle, SidebarBackButton } from '../../components/Sidebar'
+import { Link } from 'react-router-dom';
+import Layout from '../../components/Layout';
+import Sidebar, { SidebarTitle } from '../../components/Sidebar';
 import Main from '../../components/Main';
 import AddMemoBtn from '../../components/AddMenuButton';
-import MemoRouter from '../../routes';
-import { Memo } from '../../models';
-import { fetchMemoList } from '../../apis';
 import { List, ListItem } from '../../components/List';
+import { Memo } from '../../models';
 
-interface MemoPageState {
-  memos: Memo[];
+interface Props {
+  memos: Memo[]
+  deletedMemos: Memo[] 
 }
 
-class MemoPage extends React.Component<RouteComponentProps, MemoPageState> {
-  constructor(props: RouteComponentProps) {
-    super(props);
-
-    this.state = {
-      memos: []
-    }
-  }
-
-  componentDidMount() {
-    this.fetchData()
-  }
-
-  componentWillReceiveProps(preProps: RouteComponentProps) {
-    const urlChanged = preProps.location.pathname !== this.props.location.pathname;
-    if (urlChanged) {
-      this.fetchData();
-    }
-  }
-
-  fetchData() {
-    const memos = fetchMemoList();
-    this.setState({ memos });
-  }
-
-  render() {
-    const { match, location } = this.props;
-    const { memos } = this.state;
-    const hasMemos = memos.length > 0;
-
-    if (match.isExact && hasMemos) {
-      return <Redirect to={`${match.url}/${memos[0].id}`} />
-    }
-
-    return (
-      <Layout>
-        <Sidebar>
-          <SidebarBackButton to="/" />
-          <SidebarTitle>메모</SidebarTitle>
-          {hasMemos && this.renderMemoList(memos)}
-        </Sidebar>
-        <Main>
-          <div style={{ margin: '10px' }}>
-            {location.pathname !== `${match.url}/add` && <AddMemoBtn />}
-            <MemoRouter />
-          </div>
-        </Main>
-      </Layout>
-    );
-  }
-
-  renderMemoList(memos: Memo[]) {
-    return (
-      <List>
-        {memos.map((memo, idx) => 
-          <ListItem key={idx} first={idx === 0}>
-            <Link to={`/memo/${memo.id}`}>
-              {this.memoTitle(memo.content)}
-            </Link>
+const HomePage: React.FC<Props> = props => {
+  const { memos, deletedMemos } = props
+  
+  return (
+    <Layout>
+      <Sidebar>
+        <SidebarTitle>폴더</SidebarTitle>
+        <List>
+          <ListItem first>
+            <Link to="/memo">메모({memos.length})</Link>
           </ListItem>
-        )}
-      </List>
-    )
-  }
-
-  memoTitle(content: string): string {
-    return content.substr(0, 15);
-  }
+          <ListItem>
+            <Link to="/trash">휴지통({deletedMemos.length})</Link>
+          </ListItem>
+        </List>
+      </Sidebar>
+      <Main>
+        <div style={{
+          margin: '10px'
+        }}><AddMemoBtn /></div>
+      </Main>
+    </Layout>
+  );
 }
 
-export default MemoPage;
+export default HomePage;
