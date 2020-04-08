@@ -3,17 +3,13 @@ import { Memo } from '../../models';
 import Button from '../../components/Button';
 
 interface Props {
-  onSubmit(memo: Memo): void;
+  apiCalling: boolean;
+  addMemo(memo: Memo): void;
 }
 
-interface State {
-  value: string
-}
 
-class AddMemoPage extends React.Component<Props, State> {
-  readonly state = {
-    value: '',
-  }
+
+class AddMemoPage extends React.Component<Props> {
 
   handleChange = (evt: React.FormEvent<HTMLTextAreaElement>) => {
     const {value} = evt.currentTarget;
@@ -21,34 +17,32 @@ class AddMemoPage extends React.Component<Props, State> {
   }
 
   handleClickSave = () => {
-    const { onSubmit } = this.props;
+    const { addMemo } = this.props;
     const {value} = this.state;
     const content = value.trim();
     if (!content) return;
 
-    onSubmit({ content })
+    addMemo({ content })
   }
 
   render() {
+    const {apiCalling} = this.props;
     const {value} = this.state;
     
     return (
       <React.Fragment>
         <form>
           <textarea 
-            style={{
-              width: '97%',
-              height: '100px',
-              borderRadius: '4px',
-              border: '1px solid #ccc',
-              padding: '10px',
-            }}
-            placeholder="여기에 메모를 입력하세요" 
-            onChange={this.handleChange}
-            value={value} />
+            value={value} 
+            onChange={this.handleChange} 
+          />
         </form>
         <Button to="/memo">취소</Button>
-        <Button onClick={this.handleClickSave}>저장</Button>
+        <Button 
+          // api 요청상태에 따라 버튼을 비활성화 한다 
+          disabled={apiCalling} 
+          onClick={this.handleClickSave}
+        >저장</Button>
       </React.Fragment>
     )
   }

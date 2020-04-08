@@ -22,7 +22,12 @@ const MemoListPage: React.FC<Props> = props => {
       <Sidebar>
         <SidebarBackButton to="/" />
         <SidebarTitle>메모</SidebarTitle>
-        {hasMemos && <MemoList {...props}/>}
+        {hasMemos && <MemoList {...props}/>
+            : apiCalling
+            ? <Skelton style={{margin: '10px'}} />
+              : null
+      
+      }
       </Sidebar>
       <Main>
         <div style={{ margin: '10px' }}>

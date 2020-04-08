@@ -6,8 +6,10 @@ import { addMemo, AddMemoAction } from '../actions';
 import AddMemoPage from '../pages/memo/AddMemo'
 import { Dispatch, bindActionCreators } from 'redux';
 import { Redirect } from 'react-router';
+import {RootState} from '../reducers'
 
 interface Props {
+  apiCalling: boolean
   addMemo(memos: Memo): AddMemoAction
 }
 
@@ -33,12 +35,12 @@ class AddMemoContainer extends React.Component<Props, State> {
     const {newMemoId} = this.state
     if (newMemoId > 0) return <Redirect to={`/memo/${newMemoId}`} />
     
-    return <AddMemoPage onSubmit={this.handleSubmit} />
+    return <AddMemoPage {...this.props} onSubmit={this.handleSubmit} />
   }
 }
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state: RootState) => ({
+  apiCalling: state.app.apiCalling
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
