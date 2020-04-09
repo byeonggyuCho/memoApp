@@ -53,25 +53,5 @@ const MemoContainer = function(){
   
 }
 
-// const mapStateToProps = 
-// (state: RootState, props: RouteComponentProps<MatchProps>) => {
-//   const memoId = parseInt(props.match.params.id, 10)
-
-//   return {
-//     memo: state.memo.memos.find(memo => memo.id == memoId),
-//     apiCalling: state.app.apiCalling,
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch: Dispatch) => 
-//   bindActionCreators({
-//     fetchMemo,
-//     deleteMemo,
-//   }, dispatch)
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(MemoContainer)
 
 export default MemoContainer;

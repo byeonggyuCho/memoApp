@@ -1,3 +1,4 @@
+import { push } from 'connected-react-router';
 import { takeLatest, all, call, put, take } from 'redux-saga/effects'
 import * as api from '../apis'
 import {
@@ -23,7 +24,7 @@ import {
   DeleteMemoAction,
   RestoreMemoAction
 } from '../actions/memo';
-import { push } from 'connected-react-router';
+
 
 
 export default function* memoSaga() {

@@ -9,12 +9,7 @@ import {
   fetchDeletedMemoList,
 } from '../actions/memo'
 
-// interface Props {
-//   memos: Memo[] 
-//   deletedMemos: Memo[] 
-//   fetchMemoList(): FetchMemoListAction
-//   fetchDeletedMemoList(): FetchDeletedMemoListAction
-// }
+
 
 const HomeContainer = function(){
 
@@ -38,24 +33,6 @@ const HomeContainer = function(){
 
 
 
-// const mapStateToProps = (state: RootState) => {
-//   return {
-//     memos: state.memo.memos,
-//     deletedMemos: state.memo.deletedMemos,
-//   }
-// }
-
-// const mapDisptchToProps = (dispatch: Dispatch) => {
-//   return bindActionCreators({
-//     fetchMemoList,
-//     fetchDeletedMemoList,
-//   }, dispatch)
-// }
-
-// export default connect(
-//   mapStateToProps,
-//   mapDisptchToProps
-// )(HomeContainer)
 
 
 export default HomeContainer;

@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import memo, { MemoState } from './memo'
 import app, {AppState} from './app'
 import { connectRouter } from 'connected-react-router'
+import { History } from "history";
 
 export interface RootState {
   memo: MemoState
@@ -14,7 +15,7 @@ export interface RootState {
 //   app
 // })
 
-const createRootReducer = (history: any) => combineReducers({
+const createRootReducer = (history: History) => combineReducers({
   router: connectRouter(history),
   memo,
   app
