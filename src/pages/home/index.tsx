@@ -23,7 +23,7 @@ const HomePage: React.FC<Props> = props => {
   ]
 
   const listItem = list.map((item,index)=>(
-    <ListItem first = {index==0}>
+    <ListItem key={index} first = {index==0}>
       <Link to={item.to}> 
         {item.label} ({item.length})
       </Link>

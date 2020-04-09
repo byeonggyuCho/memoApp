@@ -1,7 +1,6 @@
 import { all, takeEvery, put, delay} from 'redux-saga/effects'
 import { ADD_TOAST, SHOW_TOAST, REMOVE_TOAST } from '../actions/types';
 import { ShowToastAction } from '../reducers/app';
-import { isString } from 'util';
 
 export default function* appSaga() {
   yield all([
@@ -18,7 +17,7 @@ export default function* appSaga() {
 let _id = 0
 
 function* showToast$(action: ShowToastAction) {
-  const nextId: number = ++_id;
+  const nextId = ++_id;
   _id = nextId;
   const text: string = action.payload
   yield put({ type: ADD_TOAST, payload: {id: nextId, text}})

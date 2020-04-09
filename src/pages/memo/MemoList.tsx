@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import Sidebar, { SidebarTitle, SidebarBackButton } from '../../components/Sidebar';
+import Skelton from '../../components/Skelton';
 import Main from '../../components/Main';
 import AddMemoBtn from '../../components/AddMenuButton';
 import MemoRouter from '../../routes/memo';
@@ -9,12 +10,13 @@ import { Memo } from '../../models';
 import { List, ListItem } from '../../components/List';
 
 interface Props {
-  memos: Memo[];
-  hasAddMemoBtn?: boolean;
+  memos: Memo[]
+  hasAddMemoBtn: boolean
+  apiCalling: boolean
 }
 
 const MemoListPage: React.FC<Props> = props => {
-  const { memos, hasAddMemoBtn = false } = props;
+  const { memos, apiCalling, hasAddMemoBtn } = props;
   const hasMemos = memos.length > 0;
 
   return (
@@ -22,12 +24,12 @@ const MemoListPage: React.FC<Props> = props => {
       <Sidebar>
         <SidebarBackButton to="/" />
         <SidebarTitle>메모</SidebarTitle>
-        {hasMemos && <MemoList {...props}/>
-            : apiCalling
+        {hasMemos 
+          ? <MemoList {...props} />
+          : apiCalling 
             ? <Skelton style={{margin: '10px'}} />
-              : null
-      
-      }
+            : null
+        }
       </Sidebar>
       <Main>
         <div style={{ margin: '10px' }}>
@@ -46,21 +48,19 @@ const MemoList: React.FC<Props> = ({memos}) => {
     return content.substr(0, 15);
   }
 
-  const items = memos.map((memo, idx) =>
-    <ListItem key={idx} first={idx === 0}>
-      <Link to={`/memo/${memo.id}`}
-        style={{
-          textDecoration: 'none',
-          color: '#000'
-        }}>
-        {memoTitle(memo.content)}
-      </Link>
-    </ListItem>
-  )
-
   return (
     <List>
-      {items}
+      {memos.map((memo, idx) =>
+        <ListItem key={idx} first={idx === 0}>
+          <Link to={`/memo/${memo.id}`}
+            style={{
+              textDecoration: 'none',
+              color: '#000'
+            }}>
+            {memoTitle(memo.content)}
+          </Link>
+        </ListItem>
+      )}
     </List>
   )
 }

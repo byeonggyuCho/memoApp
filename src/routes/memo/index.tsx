@@ -1,16 +1,16 @@
+
 import * as React from 'react';
 import { Switch, RouteComponentProps, Route, withRouter } from 'react-router-dom';
-import AddMemo from '../../pages/memo/AddMemo';
-import Memo from '../../pages/memo/Memo';
+import MemoContainer from '../../containers/Memo'
+import AddMemoContainer from '../../containers/AddMemo'
 
 const MemoRouter: React.FC<RouteComponentProps> = props => {
   const { match } = props;
   
   return (
     <Switch>
-      <Route path={`${match.url}/add`} exact component={AddMemo} />
-      <Route path={`${match.url}/:id`} exact component={Memo} />
-      <Route path={`${match.url}/`} exact component={() => <div>메모가 없습니다. 새로운 메모를 만들어 보세요.</div>} />
+      <Route path={`${match.url}/add`} exact component={AddMemoContainer} />
+      <Route path={`${match.url}/:id`} exact component={MemoContainer} />
     </Switch>
   )
 }

@@ -2,9 +2,9 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 import { Memo } from '../models';
 import DeletedMemoListPage from '../pages/trash/DeletedMemoList';
-import * as api from '../apis';
 import { Dispatch, bindActionCreators } from 'redux';
-import { fetchDeletedMemoList, FetchDeletedMemoListAction } from '../actions';
+import { fetchDeletedMemoList } from '../actions';
+import { FetchDeletedMemoListAction } from '../reducers/memo';
 import { RootState } from '../reducers';
 import { RouteComponentProps, Redirect } from 'react-router';
 
@@ -14,15 +14,14 @@ interface MatchProps {
 
 interface Props {
   memos: Memo[]
-  fetchDeletedMemoList(memos: Memo[]): FetchDeletedMemoListAction
+  fetchDeletedMemoList(): FetchDeletedMemoListAction
 }
 
 class DeletedMemoListContainer 
 extends React.Component<Props & RouteComponentProps<MatchProps>> {
   componentWillMount() {
     const {fetchDeletedMemoList} = this.props;
-    const momos = api.fetchDeletedMemoList()
-    fetchDeletedMemoList(momos)
+    fetchDeletedMemoList()
   }
   
   render() {
