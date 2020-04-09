@@ -1,55 +1,61 @@
   
-import * as React from 'react'
+import React,{useEffect} from 'react'
 import { RootState } from '../reducers'
 import HomePage from '../pages/home'
-import { Dispatch, bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Memo } from '../models';
-import { 
-  FetchMemoListAction,
-  FetchDeletedMemoListAction
-} from '../reducers/memo';
+import { Dispatch } from 'redux'
+import { useDispatch ,useSelector } from 'react-redux'
 import {
   fetchMemoList,
   fetchDeletedMemoList,
-} from '../actions'
+} from '../actions/memo'
 
-interface Props {
-  memos: Memo[] 
-  deletedMemos: Memo[] 
-  fetchMemoList(): FetchMemoListAction
-  fetchDeletedMemoList(): FetchDeletedMemoListAction
+// interface Props {
+//   memos: Memo[] 
+//   deletedMemos: Memo[] 
+//   fetchMemoList(): FetchMemoListAction
+//   fetchDeletedMemoList(): FetchDeletedMemoListAction
+// }
+
+const HomeContainer = function(){
+
+  const dispatch:Dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(fetchMemoList())
+    dispatch(fetchDeletedMemoList())
+  },[])
+
+  const { memos, deletedMemos } = useSelector((state: RootState)=>{
+    return {
+      memos: state.memo.memos,
+      deletedMemos: state.memo.deletedMemos,
+    }
+  })
+
+
+    return <HomePage memos={memos} deletedMemos={deletedMemos} />
 }
 
-class HomeContainer extends React.Component<Props> {
-  componentDidMount() {
-    const { fetchMemoList, fetchDeletedMemoList } = this.props
-    fetchMemoList()
-    fetchDeletedMemoList()
-  }
-
-  render() {
-    return <HomePage {...this.props} />
-  }
-}
 
 
+// const mapStateToProps = (state: RootState) => {
+//   return {
+//     memos: state.memo.memos,
+//     deletedMemos: state.memo.deletedMemos,
+//   }
+// }
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    memos: state.memo.memos,
-    deletedMemos: state.memo.deletedMemos,
-  }
-}
+// const mapDisptchToProps = (dispatch: Dispatch) => {
+//   return bindActionCreators({
+//     fetchMemoList,
+//     fetchDeletedMemoList,
+//   }, dispatch)
+// }
 
-const mapDisptchToProps = (dispatch: Dispatch) => {
-  return bindActionCreators({
-    fetchMemoList,
-    fetchDeletedMemoList,
-  }, dispatch)
-}
+// export default connect(
+//   mapStateToProps,
+//   mapDisptchToProps
+// )(HomeContainer)
 
-export default connect(
-  mapStateToProps,
-  mapDisptchToProps
-)(HomeContainer)
+
+export default HomeContainer;

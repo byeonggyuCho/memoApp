@@ -1,12 +1,11 @@
-import * as React from 'react'
-import {connect} from 'react-redux'
+import  React, {useState,useEffect} from 'react'
+import {connect, useSelector, useDispatch} from 'react-redux'
 import { Memo } from '../models';
-import * as api from '../apis';
 import { Dispatch, bindActionCreators } from 'redux';
-import { fetchMemo, deleteMemo } from '../actions';
-import {FetchMemoAction, DeleteMemoAction} from '../reducers/memo';
+import { fetchMemo, deleteMemo } from '../actions/memo';
+import {FetchMemoAction, DeleteMemoAction} from '../actions/memo';
 import { RootState } from '../reducers';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useParams } from 'react-router';
 import MemoPage from '../pages/memo/Memo';
 
 interface MatchProps {
@@ -20,39 +19,59 @@ interface Props {
   deleteMemo(id: number): DeleteMemoAction
 }
 
-class MemoContainer 
-extends React.Component<Props & RouteComponentProps<MatchProps>, {}> {
+// class MemoContainer extends React.Component<Props & RouteComponentProps<MatchProps>, {}> {
+const MemoContainer = function(){
 
-  componentDidMount() {
-    const {fetchMemo, match: {params: {id}}} = this.props;
-    const memoId = parseInt(id, 10)
-    if (!isNaN(memoId)) {
-      fetchMemo(memoId)
+  const {id} = useParams()
+  const memoId = parseInt(id as string, 10)
+  const dispatch:Dispatch = useDispatch();
+
+  const {memo,apiCalling} = useSelector((state:RootState)=>{
+    return {
+      memo: state.memo.memos.find(memo => memo.id == memoId),
+      apiCalling: state.app.apiCalling,
     }
-  }
+  })
+
+  useEffect(()=>{
+    if (!isNaN(memoId)) 
+          dispatch(fetchMemo(memoId))
+  },[memoId])
+
+  // componentDidMount() {
+  //   const {fetchMemo, match: {params: {id}}} = this.props;
+  //   const memoId = parseInt(id, 10)
+  //   if (!isNaN(memoId)) {
+  //     fetchMemo(memoId)
+  //   }
+  // }
+
+  const deleteMemoHandler = (_id:number)=> dispatch(deleteMemo(_id));
+
   
-  render() {
-    return <MemoPage {...this.props} />
-  }
+  return <MemoPage memo={memo} apiCalling={apiCalling} deleteMemo={deleteMemoHandler} />
+  
 }
 
-const mapStateToProps = 
-(state: RootState, props: RouteComponentProps<MatchProps>) => {
-  const memoId = parseInt(props.match.params.id, 10)
+// const mapStateToProps = 
+// (state: RootState, props: RouteComponentProps<MatchProps>) => {
+//   const memoId = parseInt(props.match.params.id, 10)
 
-  return {
-    memo: state.memo.memos.find(memo => memo.id == memoId),
-    apiCalling: state.app.apiCalling,
-  }
-}
+//   return {
+//     memo: state.memo.memos.find(memo => memo.id == memoId),
+//     apiCalling: state.app.apiCalling,
+//   }
+// }
 
-const mapDispatchToProps = (dispatch: Dispatch) => 
-  bindActionCreators({
-    fetchMemo,
-    deleteMemo,
-  }, dispatch)
+// const mapDispatchToProps = (dispatch: Dispatch) => 
+//   bindActionCreators({
+//     fetchMemo,
+//     deleteMemo,
+//   }, dispatch)
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MemoContainer)
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(MemoContainer)
+
+export default MemoContainer;

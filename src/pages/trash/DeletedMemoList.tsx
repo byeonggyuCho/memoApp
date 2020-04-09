@@ -11,7 +11,7 @@ interface Props {
   memos: Memo[]
 }
 
-const DeletedMemoListPage: React.FC<Props & RouteComponentProps> = props => {
+const DeletedMemoListPage = (props:Props) => {
     return (
       <Layout>
         <Sidebar>

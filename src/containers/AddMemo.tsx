@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {connect} from 'react-redux'
 import { Memo } from '../models';
-import { addMemo } from '../actions';
-import { AddMemoAction } from '../reducers/memo';
+import { addMemo } from '../actions/memo';
+import { AddMemoAction } from '../actions/memo';
 import AddMemoPage from '../pages/memo/AddMemo'
 import { Dispatch, bindActionCreators } from 'redux';
 import { RootState } from '../reducers';
@@ -12,10 +12,8 @@ interface Props {
   addMemo(memos: Memo): AddMemoAction
 }
 
-class AddMemoContainer extends React.Component<Props> {
-  render() {
-    return <AddMemoPage {...this.props} />
-  }
+const AddMemoContainer = function (props: Props){
+    return <AddMemoPage {...props} />
 }
 
 const mapStateToProps = (state: RootState) => ({

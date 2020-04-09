@@ -12,13 +12,13 @@ interface Props {
   deletedMemos: Memo[] 
 }
 
-const HomePage: React.FC<Props> = props => {
+const HomePage = function (props:Props) {
   const { memos, deletedMemos } = props
 
 
   // 메뉴 자동화.
   const list = [
-    {to:'/meme', label:'메모', length: memos.length},
+    {to:'/memo', label:'메모', length: memos.length},
     {to:'/trash',  label:'휴지통' , length: deletedMemos.length},
   ]
 

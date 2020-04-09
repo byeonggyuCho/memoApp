@@ -1,16 +1,14 @@
-import * as React from 'react'
-import {connect} from 'react-redux'
+import React,{ useEffect} from 'react'
+import { useDispatch, useSelector} from 'react-redux'
 import { Memo } from '../models';
-import { Dispatch, bindActionCreators } from 'redux';
-import { fetchDeletedMemo, restoreMemo} from '../actions';
-import { FetchDeletedMemoAction, RestoreMemoAction} from '../reducers/memo';
+// import { Dispatch, bindActionCreators } from 'redux';
+import { fetchDeletedMemo, restoreMemo} from '../actions/memo';
+import { FetchDeletedMemoAction, RestoreMemoAction} from '../actions/memo';
 import { RootState } from '../reducers';
-import { RouteComponentProps } from 'react-router';
+import {  useParams } from 'react-router';
 import DeletedMemo from '../pages/trash/DeletedMemo';
 
-interface MatchProps {
-  id: string;
-}
+
 
 interface Props {
   memo?: Memo
@@ -18,46 +16,75 @@ interface Props {
   restoreMemo(id: number): RestoreMemoAction
 }
 
-class DeletedMemoContainer 
-extends React.Component<Props & RouteComponentProps<MatchProps>, {}> {
-  componentWillMount() {
-    const {fetchDeletedMemo, match: {params: {id}}} = this.props;
-    const memoId = parseInt(id, 10)
-    if (!isNaN(memoId)) {
-      fetchDeletedMemo(memoId)
+
+const DeletedMemoContainer = function(props:Props){
+
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  const memoId = parseInt(id as string, 10)
+
+  useEffect(()=>{
+    
+    return ()=>{
+      console.log('DeletedMemo component will mount')
+     
+      if (!isNaN(memoId)) {
+        dispatch(fetchDeletedMemo(memoId))
+      }
     }
-  }
+  },[memoId])
+
+  const {memo}  = useSelector((state:RootState)=> ({
+    memo : state.memo.deletedMemos.find(memo => memo.id == memoId) 
+  }))
+
+//   const mapStateToProps = 
+// (state: RootState, props: RouteComponentProps<MatchProps>) => {
+//   const memoId = parseInt(props.match.params.id, 10)
+
+//   return {
+//     memo: state.memo.deletedMemos.find(memo => memo.id == memoId) 
+//   }
+// }
+
+
+
+  // componentWillMount() {
+  //   const {fetchDeletedMemo, match: {params: {id}}} = props;
+  //   const memoId = parseInt(id, 10)
+  //   if (!isNaN(memoId)) {
+  //     fetchDeletedMemo(memoId)
+  //   }
+  // }
   
-  onRestore = (id: number) => {
-    const {restoreMemo} = this.props;
+  const onRestore = (id: number) => {
+    const {restoreMemo} = props;
     restoreMemo(id)
   }
 
-  render() {
     return (
-      <DeletedMemo 
-        {...this.props} 
-        onRestore={this.onRestore} />
+      <DeletedMemo memo={memo} onRestore={onRestore} />
     )
-  }
 }
 
-const mapStateToProps = 
-(state: RootState, props: RouteComponentProps<MatchProps>) => {
-  const memoId = parseInt(props.match.params.id, 10)
+// const mapStateToProps = 
+// (state: RootState, props: RouteComponentProps<MatchProps>) => {
+//   const memoId = parseInt(props.match.params.id, 10)
 
-  return {
-    memo: state.memo.deletedMemos.find(memo => memo.id == memoId) 
-  }
-}
+//   return {
+//     memo: state.memo.deletedMemos.find(memo => memo.id == memoId) 
+//   }
+// }
 
-const mapDispatchToProps = (dispatch: Dispatch) => 
-  bindActionCreators({
-    fetchDeletedMemo,
-    restoreMemo,
-  }, dispatch)
+// const mapDispatchToProps = (dispatch: Dispatch) => 
+//   bindActionCreators({
+//     fetchDeletedMemo,
+//     restoreMemo,
+//   }, dispatch)
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DeletedMemoContainer)
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(DeletedMemoContainer)
+
+export default  DeletedMemoContainer

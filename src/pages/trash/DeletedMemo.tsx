@@ -8,7 +8,7 @@ interface Props {
   onRestore(id: number): void
 }
 
-const DeletedMemo: React.FC<Props> = props => {
+const DeletedMemo= (props:Props )=> {
   const { memo, onRestore } = props;
   if (!memo) return null
   

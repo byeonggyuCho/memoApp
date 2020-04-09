@@ -1,6 +1,6 @@
 import { all, takeEvery, put, delay} from 'redux-saga/effects'
-import { ADD_TOAST, SHOW_TOAST, REMOVE_TOAST } from '../actions/types';
-import { ShowToastAction } from '../reducers/app';
+import { ADD_TOAST, SHOW_TOAST, REMOVE_TOAST } from '../actions/app';
+import { ShowToastAction } from '../actions/app';
 
 export default function* appSaga() {
   yield all([

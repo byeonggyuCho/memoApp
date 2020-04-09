@@ -78,8 +78,9 @@ class MemoPage extends React.Component<RouteComponentProps, MemoPageState> {
     )
   }
 
+  // 길이 제한
   memoTitle(content: string): string {
-    return content.substr(0, 15);
+    return content.substr(0, 15)+"...";
   }
 }
 

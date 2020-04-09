@@ -8,17 +8,21 @@ import {
   ADD_MEMO,
   DELETE_MEMO,
   RESTORE_MEMO,
+} from '../actions/memo';
+import {
   CLEAR_API_CALL_STATUS,
   SHOW_DIALOG,
   CONFIRM_DIALOG,
-} from '../actions/types';
+
+} from '../actions/app'
+
 import {
   FetchMemoAction,
   FetchDeletedMemoAction,
   AddMemoAction,
   DeleteMemoAction,
   RestoreMemoAction
-} from '../reducers/memo';
+} from '../actions/memo';
 import { push } from 'connected-react-router';
 
 

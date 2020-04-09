@@ -78,6 +78,8 @@
 
 
 ## 컴포넌트 설계
+- [참고: 컴포넌트의 역할분리](https://jeonghwan-kim.github.io/dev/2020/01/28/component-design.html)
+
 - 리랜더링을 최소화하는 구조..
 - 왜 이렇게 컴포넌트를 분할했나?
 - 어떻게 해야하는가?

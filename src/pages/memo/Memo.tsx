@@ -4,7 +4,7 @@ import { Memo } from '../../models';
 import Skelton from '../../components/Skelton';
 import Button from '../../components/Button';
 import DateString from '../../components/DateString';
-import { DeleteMemoAction } from '../../reducers/memo';
+import { DeleteMemoAction } from '../../actions/memo';
 
 interface Props {
   memo?: Memo;
