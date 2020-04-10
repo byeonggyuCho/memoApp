@@ -56,7 +56,7 @@ const dbConnect= <T extends memoSchema>(store: T[]) => {
 }
 // 60662 5724 6687
 
-
+// todo: middleware로 delay처리해보기
 let mockDB= dbConnect<Memo>(initStore);
 
 
@@ -79,6 +79,9 @@ export const fetchDeletedMemoList = async () =>  await mockDB.select((store)=>{
 
 
 export const fetchMemo = async(memoId: number) =>  await mockDB.select((store)=>{
+
+  console.log('api.fetchMemo: ', store)
+
   return store.find(m => m.id === memoId)
 })
   
@@ -87,7 +90,7 @@ export const addMemo = async(memo: Memo) =>  await mockDB.insert((store)=>{
   const lastMemo = store.sort((a, b) => b.id! - a.id!)[0];
   memo.id = lastMemo ? lastMemo.id! + 1 : 1;
   memo.createdAt = Date.now();
-  store = [ memo, ...store ];
+  store = [...store, memo ];
   return memo;
 })
 
@@ -111,7 +114,7 @@ export const deleteMemo = async(memoId: number) =>  await mockDB.delete( (store)
 })
 
 
-export const resotreMemo = async(memoId: number) =>  await mockDB.update( (store) =>{
+export const restoreMemo = async(memoId: number) =>  await mockDB.update( (store) =>{
   return store.map(memo => ({
     ...memo,
     deleted: memo.id === memoId ? false : memo.deleted,

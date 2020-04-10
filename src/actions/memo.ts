@@ -94,7 +94,6 @@ export interface FetchDeletedMemoSuccessAction {
   type: typeof FETCH_DELETED_MEMO.SUCCESS
   payload: Memo
 }
-//FetchMemoListSuccessAction | AddMemoSuccessAction | DeleteMemoSuccessAction
 export interface AddMemoAction {
   type: typeof ADD_MEMO.REQUEST
   payload: Memo
@@ -120,7 +119,7 @@ export interface RestoreMemoAction {
   payload: number
 }
 
-export interface ResotreMemoSuccessAction {
+export interface restoreMemoSuccessAction {
   type: typeof RESTORE_MEMO.SUCCESS,
   payload: Memo[]
 }
@@ -178,7 +177,7 @@ type MemoActionTypes = FetchMemoListSuccessAction
   | FetchDeletedMemoSuccessAction
   | AddMemoSuccessAction
   | DeleteMemoSuccessAction
-  | ResotreMemoSuccessAction
+  | restoreMemoSuccessAction
   | IniteMemoAction
 
 

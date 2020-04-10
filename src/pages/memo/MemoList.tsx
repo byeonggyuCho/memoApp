@@ -57,7 +57,7 @@ const MemoList: React.FC<Props> = ({memos}) => {
               textDecoration: 'none',
               color: '#000'
             }}>
-            {memoTitle(memo.content)}
+            {memoTitle(memo.content as string)}
           </Link>
         </ListItem>
       )}

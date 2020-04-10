@@ -43,9 +43,12 @@ const memoReducer = (state = initialState, action: MemoActionTypes): MemoState =
       }
 
     case INIT_MEMO:
-      return produce(initialState, draftState=>{
+      let init_ater =  produce(state, draftState=>{
+          // console.log('INIT_MEMO_before', draftState)
           draftState.memo = initialState.memo
         })
+        console.log('INIT_MEMO_after', init_ater)
+        return init_ater;
   
     case FETCH_MEMO_LIST.SUCCESS:
       return {
@@ -70,7 +73,7 @@ const memoReducer = (state = initialState, action: MemoActionTypes): MemoState =
     case ADD_MEMO.SUCCESS:
       return {
         ...state,
-        memos: [action.payload, ...state.memos]
+        memos: [...state.memos, action.payload]
       }
   
     case RESTORE_MEMO.SUCCESS:

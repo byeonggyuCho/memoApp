@@ -60,6 +60,7 @@ function* fetchMemo$(action: FetchMemoAction) {
 
   try {
     const memo = yield call(api.fetchMemo, payload)
+    console.log('[fetchMemo$]', memo)
     yield put({ type: FETCH_MEMO.SUCCESS, payload: memo })
   } catch (err) {
     yield put({ type: FETCH_MEMO.FAILURE, payload: '메모 불러오기에 실패했습니다.' })
@@ -74,7 +75,7 @@ function* fetchDeletedMemo$(action: FetchDeletedMemoAction) {
     const memo = yield call(api.fetchMemo, payload)
     yield put({ type: FETCH_DELETED_MEMO.SUCCESS, payload: memo })
   } catch (err) {
-    yield put({ type: FETCH_DELETED_MEMO.FAILURE, payload: '메모 삭제에 실패했습니다.' })
+    yield put({ type: FETCH_DELETED_MEMO.FAILURE, payload: '삭제된 메모 불러오기에 실패했습니다.' })
   }
 }
 
@@ -95,15 +96,17 @@ function* addMemo$(action: AddMemoAction) {
 
   try {
     // throw Error();
-    const memo = yield call(api.addMemo, payload)
-    yield put({ type: ADD_MEMO.SUCCESS, payload: memo })
+    const newMemo = yield call(api.addMemo, payload)
+    console.log('[addMemo$]_ insert new memo success')
+    yield put({ type: ADD_MEMO.SUCCESS, payload: newMemo })
     yield put({ type: SHOW_DIALOG, payload: {
       type: 'alert',
       text: '메모가 생성되었습니다. 메뉴 수정 화면으로 이동합니다.'
     }})
+    console.log('[addMemo$]_ request SHOW_DIALOG')
     yield take(CONFIRM_DIALOG)
 
-    yield put(push(`/memo/${memo.id}`))
+    yield put(push(`/memo/${newMemo.id}`))
   } catch (err) {
     yield put({ type: ADD_MEMO.FAILURE, payload: '메모 추가에 실패했습니다.' })
   } finally {
@@ -136,7 +139,7 @@ function* restoreMemo$(action: RestoreMemoAction) {
   if (!payload) return;
 
   try {
-    const memos = yield call(api.resotreMemo, payload)
+    const memos = yield call(api.restoreMemo, payload)
 
     console.log(`restore,${memos}`)
     yield put({
