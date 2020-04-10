@@ -28,14 +28,16 @@ const MemoContainer = function(){
 
   const {memo,apiCalling} = useSelector((state:RootState)=>{
     return {
-      memo: state.memo.memos.find(memo => memo.id == memoId),
+      // memo: state.memo.memos.find(memo => memo.id == memoId), // 여기서 오는 정보는 전체정보임...
+      memo: state.memo.memo, // 여기서 오는 정보는 전체정보임...
       apiCalling: state.app.apiCalling,
     }
   })
 
   useEffect(()=>{
     if (!isNaN(memoId)) 
-          dispatch(fetchMemo(memoId))
+      // 메모 상세조회.
+      dispatch(fetchMemo(memoId))
   },[memoId])
 
   // componentDidMount() {

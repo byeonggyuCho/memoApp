@@ -43,6 +43,7 @@ function* fetchMemoList$() {
   try {
     // throw Error()
     const memos = yield call(api.fetchMemoList)
+    console.log('fetchMemoList_saga',memos);
     yield put({ type: FETCH_MEMO_LIST.SUCCESS, payload: memos })
   } catch (err) {
     yield put({ type: FETCH_MEMO_LIST.FAILURE, payload: '메모 목록 불러오기에 실패했습니다.' })
@@ -51,15 +52,7 @@ function* fetchMemoList$() {
   }
 }
 
-function* fetchDeletedMemoList$() {
-  try {
-    // throw Error()
-    const memos = yield call(api.fetchDeletedMemoList)
-    yield put({ type: FETCH_DELETED_MEMO_LIST.SUCCESS, payload: memos })
-  } catch (err) {
-    yield put({ type: FETCH_MEMO_LIST.FAILURE, payload: '삭제된 메모 목록 불러오기에 실패했습니다.' })
-  }
-}
+
 
 function* fetchMemo$(action: FetchMemoAction) {
   const { payload } = action;
@@ -82,6 +75,17 @@ function* fetchDeletedMemo$(action: FetchDeletedMemoAction) {
     yield put({ type: FETCH_DELETED_MEMO.SUCCESS, payload: memo })
   } catch (err) {
     yield put({ type: FETCH_DELETED_MEMO.FAILURE, payload: '메모 삭제에 실패했습니다.' })
+  }
+}
+
+
+function* fetchDeletedMemoList$() {
+  try {
+    // throw Error()
+    const memos = yield call(api.fetchDeletedMemoList)
+    yield put({ type: FETCH_DELETED_MEMO_LIST.SUCCESS, payload: memos })
+  } catch (err) {
+    yield put({ type: FETCH_MEMO_LIST.FAILURE, payload: '삭제된 메모 목록 불러오기에 실패했습니다.' })
   }
 }
 
@@ -114,8 +118,8 @@ function* deleteMemo$(action: DeleteMemoAction) {
   try {
     const confirmDelete: boolean = yield call(window.confirm, '이 메모를 삭제할까요?')
     if (confirmDelete) {
-      yield call(api.deleteMemo, payload)
-      yield put({ type: DELETE_MEMO.SUCCESS, payload: payload })
+      const memos = yield call(api.deleteMemo, payload)
+      yield put({ type: DELETE_MEMO.SUCCESS, payload: memos })
       yield put(push('/memo'))
     } else {
       yield put({ type: DELETE_MEMO.FAILURE })
@@ -132,10 +136,12 @@ function* restoreMemo$(action: RestoreMemoAction) {
   if (!payload) return;
 
   try {
-    yield call(api.resotreMemo, payload)
+    const memos = yield call(api.resotreMemo, payload)
+
+    console.log(`restore,${memos}`)
     yield put({
       type: RESTORE_MEMO.SUCCESS,
-      payload
+      payload:memos
     })
 
     //todo 

@@ -7,7 +7,6 @@ import {
   REMOVE_TOAST, 
   CLEAR_API_CALL_STATUS, 
 }from '../actions/app'
-import {FETCH_MEMO_LIST, ADD_MEMO, DELETE_MEMO, }from '../actions/memo'
 import AppActionTypes from '../actions/app'
 import { Toast, Dialog } from '../models';
 
@@ -26,13 +25,7 @@ const initialState: AppState = {
 const appReducer = (state: AppState = initialState, action: AppActionTypes): AppState => {
   
   switch (action.type) {
-    case FETCH_MEMO_LIST.REQUEST: 
-    case ADD_MEMO.REQUEST: 
-    case DELETE_MEMO.REQUEST: 
-      return {
-        ...state,
-        apiCalling: true
-      }
+   
     case CLEAR_API_CALL_STATUS: 
       return {
         ...state,

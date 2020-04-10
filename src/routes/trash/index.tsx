@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Switch, RouteComponentProps, Route,  withRouter } from 'react-router-dom';
+import { Switch, useRouteMatch,  Route,  withRouter } from 'react-router-dom';
 import DeletedMemoContainer from '../../containers/DeletedMemo';
 
 
-const TrashRouter: React.FC<RouteComponentProps> = props => {
-  const { match } = props;
+const TrashRouter = () => {
+  const { url } = useRouteMatch();
 
   return (
     <Switch>
-      <Route path={`${match.url}/:id`} exact component={DeletedMemoContainer} />
-      <Route path={`${match.url}/`} exact component={() => <div>휴지통이 비었습니다.</div>} />
+      <Route path={`${url}/:id`} exact component={DeletedMemoContainer} />
+      <Route path={`${url}/`} exact component={() => <div>휴지통이 비었습니다.</div>} />
     </Switch>
   )
 }

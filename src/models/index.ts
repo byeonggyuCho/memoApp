@@ -1,8 +1,8 @@
 export interface Memo {
-    id?: number;
-    content: string;
-    createdAt?: number;
-    deleted?: boolean;
+    id?: number | undefined;
+    content: string | undefined;
+    createdAt?: number | undefined;
+    deleted?: boolean | undefined;
   }
 
 export interface Toast {

@@ -18,7 +18,7 @@ const MemoPage: React.FC<Props> = props => {
   return (
     <React.Fragment>
       {memo 
-        ? <React.Fragment>
+        && <React.Fragment>
             <Button 
               disabled={apiCalling}
               onClick={() => deleteMemo(memo.id!)}
@@ -30,7 +30,12 @@ const MemoPage: React.FC<Props> = props => {
               </div>
             </MemoPageLayout>
           </React.Fragment>
-        : apiCalling && <MemoPageLayout><Skelton /></MemoPageLayout>
+      }
+
+      { apiCalling && 
+        <MemoPageLayout>
+          <Skelton />
+        </MemoPageLayout>
       }
     </React.Fragment>
   );

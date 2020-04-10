@@ -1,5 +1,12 @@
 # Memo App
 
+
+## debug
+- 복구버튼.
+- 메모 수정로직...
+- toast
+- 리다이렉션
+
 ## spec
 - typescript 
 - react 

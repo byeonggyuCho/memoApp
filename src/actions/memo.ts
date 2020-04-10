@@ -1,5 +1,7 @@
 import {Memo} from '../models'
 
+export const INIT_MEMO = 'INIT_MEMO' as const
+
 
 export const FETCH_MEMO_LIST = {
   REQUEST : 'FETCH_MEMO_LIST_REQUEST',
@@ -92,7 +94,7 @@ export interface FetchDeletedMemoSuccessAction {
   type: typeof FETCH_DELETED_MEMO.SUCCESS
   payload: Memo
 }
-
+//FetchMemoListSuccessAction | AddMemoSuccessAction | DeleteMemoSuccessAction
 export interface AddMemoAction {
   type: typeof ADD_MEMO.REQUEST
   payload: Memo
@@ -110,7 +112,7 @@ export interface DeleteMemoAction {
 
 export interface DeleteMemoSuccessAction {
   type: typeof DELETE_MEMO.SUCCESS,
-  payload: number
+  payload: Memo[]
 }
 
 export interface RestoreMemoAction {
@@ -120,10 +122,12 @@ export interface RestoreMemoAction {
 
 export interface ResotreMemoSuccessAction {
   type: typeof RESTORE_MEMO.SUCCESS,
-  payload: number
+  payload: Memo[]
 }
 
-
+export interface IniteMemoAction {
+  type: typeof INIT_MEMO
+}
 
 
 
@@ -140,6 +144,8 @@ export const fetchMemo = (id: number): FetchMemoAction => ({
   payload: id
 })
 
+
+// 휴지통에서 삭제된메모 개별조회.
 export const fetchDeletedMemo = (id: number): FetchDeletedMemoAction => ({
   type: FETCH_DELETED_MEMO.REQUEST,
   payload: id
@@ -160,6 +166,10 @@ export const restoreMemo = (id: number): RestoreMemoAction => ({
   payload: id
 })
 
+export const initMemo = ():IniteMemoAction =>({
+  type: INIT_MEMO
+})
+
 
 
 type MemoActionTypes = FetchMemoListSuccessAction 
@@ -169,6 +179,7 @@ type MemoActionTypes = FetchMemoListSuccessAction
   | AddMemoSuccessAction
   | DeleteMemoSuccessAction
   | ResotreMemoSuccessAction
+  | IniteMemoAction
 
 
 export default MemoActionTypes;

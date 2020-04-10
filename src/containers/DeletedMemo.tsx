@@ -1,7 +1,6 @@
 import React,{ useEffect} from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { Memo } from '../models';
-// import { Dispatch, bindActionCreators } from 'redux';
 import { fetchDeletedMemo, restoreMemo} from '../actions/memo';
 import { FetchDeletedMemoAction, RestoreMemoAction} from '../actions/memo';
 import { RootState } from '../reducers';
@@ -38,14 +37,6 @@ const DeletedMemoContainer = function(props:Props){
     memo : state.memo.deletedMemos.find(memo => memo.id == memoId) 
   }))
 
-//   const mapStateToProps = 
-// (state: RootState, props: RouteComponentProps<MatchProps>) => {
-//   const memoId = parseInt(props.match.params.id, 10)
-
-//   return {
-//     memo: state.memo.deletedMemos.find(memo => memo.id == memoId) 
-//   }
-// }
 
 
 
@@ -58,33 +49,12 @@ const DeletedMemoContainer = function(props:Props){
   // }
   
   const onRestore = (id: number) => {
-    const {restoreMemo} = props;
-    restoreMemo(id)
+    dispatch(restoreMemo(id))
   }
 
     return (
       <DeletedMemo memo={memo} onRestore={onRestore} />
     )
 }
-
-// const mapStateToProps = 
-// (state: RootState, props: RouteComponentProps<MatchProps>) => {
-//   const memoId = parseInt(props.match.params.id, 10)
-
-//   return {
-//     memo: state.memo.deletedMemos.find(memo => memo.id == memoId) 
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch: Dispatch) => 
-//   bindActionCreators({
-//     fetchDeletedMemo,
-//     restoreMemo,
-//   }, dispatch)
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(DeletedMemoContainer)
 
 export default  DeletedMemoContainer

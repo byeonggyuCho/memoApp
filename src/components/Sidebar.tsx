@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-const style: React.CSSProperties = {
+const sidebarStyle: React.CSSProperties = {
   width: '200px',
   border: 'solid 1px #ccc',
   marginRight: '10px',
   borderRadius: '4px',
 }
 
-const Sidebar: React.FC = (props) => {
+const Sidebar: React.FC = ({children}) => {
   return (
-    <aside style={style}>
-      {props.children}
+    <aside style={sidebarStyle}>
+      {children}
     </aside>  
   )
 }
@@ -29,13 +29,13 @@ interface SidebarBackButtonProps {
   to: string;
 }
 
+const linkStyle= {
+  textDecoration: 'none',
+  fontSize: '24px',
+  padding: '10px',
+  display: 'block',
+}
+
 export const SidebarBackButton: React.FC<SidebarBackButtonProps> = ({to}) => 
-  <Link style={{
-      textDecoration: 'none',
-      fontSize: '24px',
-      padding: '10px',
-      display: 'block',
-    }}
-    to={to}
-    >{`<`}</Link>
+  <Link style={linkStyle}   to={to} >Back</Link>
   
