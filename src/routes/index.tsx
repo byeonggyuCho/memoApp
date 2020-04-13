@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import HomeContainer from '../containers/Home';
-import MemoListContainer from '../containers/MemoList';
-import DeletedMemoListContainer from '../containers/DeletedMemoList';
+import HomeContainer from '../containers/HomeContainer';
+import MemoListContainer from '../containers/MemoListContainer';
+import DeletedMemoListContainer from '../containers/DeletedMemoListContainer';
 import { history } from '../store/configureStore';
-import  DialogContainer from '../containers/Dialog'
 
 const Root: React.FC = () => (
   <ConnectedRouter history={history}>
@@ -15,7 +14,7 @@ const Root: React.FC = () => (
       <Route path="/trash" component={DeletedMemoListContainer} />
       <Redirect path="*" to="/" />
     </Switch>
-    <DialogContainer/>
+   
   </ConnectedRouter>
 )
 

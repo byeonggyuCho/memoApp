@@ -30,7 +30,7 @@ const DeletedMemoListPage = (props:Props) => {
 
 export default DeletedMemoListPage;
 
-const DeletedMemoList: React.FC<Props> = props => {
+const DeletedMemoList = ( props:Props) => {
   const {memos} = props;
   
   const memoTitle = (content: string): string => 

@@ -1,6 +1,6 @@
 export interface Memo {
     id?: number | undefined;
-    content: string | undefined;
+    content: string ;
     createdAt?: number | undefined;
     deleted?: boolean | undefined;
   }

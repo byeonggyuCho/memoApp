@@ -1,22 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import {connect, useDispatch, useSelector} from 'react-redux'
-import { Memo } from '../models';
+import {useDispatch, useSelector} from 'react-redux'
 import MemoListPage from '../pages/memo/MemoList';
 import { Dispatch, bindActionCreators } from 'redux';
 import { fetchMemoList } from '../actions/memo';
-import { FetchMemoListAction } from '../actions/memo'
 import { RootState } from '../reducers';
-import { RouteComponentProps, Redirect, useLocation, useRouteMatch } from 'react-router';
+import {  Redirect, useLocation, useRouteMatch } from 'react-router';
 
-// interface MatchProps {
-//   id: string;
-// }
-
-// interface Props {
-//   memos: Memo[]
-//   apiCalling: boolean
-//   fetchMemoList(): FetchMemoListAction
-// }
 
 const MemoListContainer = function(){
 

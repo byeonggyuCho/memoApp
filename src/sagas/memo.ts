@@ -9,6 +9,7 @@ import {
   ADD_MEMO,
   DELETE_MEMO,
   RESTORE_MEMO,
+  INIT_MEMO,
 } from '../actions/memo';
 import {
   CLEAR_API_CALL_STATUS,
@@ -85,6 +86,8 @@ function* fetchDeletedMemoList$() {
     // throw Error()
     const memos = yield call(api.fetchDeletedMemoList)
     yield put({ type: FETCH_DELETED_MEMO_LIST.SUCCESS, payload: memos })
+    // if(memos.length>0)
+    //   yield put(push(`/trash/${memos.id}`))
   } catch (err) {
     yield put({ type: FETCH_MEMO_LIST.FAILURE, payload: '삭제된 메모 목록 불러오기에 실패했습니다.' })
   }
@@ -97,7 +100,7 @@ function* addMemo$(action: AddMemoAction) {
   try {
     // throw Error();
     const newMemo = yield call(api.addMemo, payload)
-    console.log('[addMemo$]_ insert new memo success')
+    console.log('[addMemo$]_ insert new memo success',newMemo)
     yield put({ type: ADD_MEMO.SUCCESS, payload: newMemo })
     yield put({ type: SHOW_DIALOG, payload: {
       type: 'alert',
@@ -146,6 +149,8 @@ function* restoreMemo$(action: RestoreMemoAction) {
       type: RESTORE_MEMO.SUCCESS,
       payload:memos
     })
+
+    yield put({  type: INIT_MEMO  })
 
     //todo 
     history.pushState({}, '', '/trash')

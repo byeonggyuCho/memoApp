@@ -14,7 +14,6 @@ const delayedBy = <TPayload>(sec:number,payload?:TPayload) =>
    new Promise<TPayload>((resolve, reject)=> {
 
     setTimeout(() => {
-      console.log('calling API....')
       resolve(payload)
     }, sec*1000);
   })
@@ -40,17 +39,26 @@ const dbConnect= <T extends memoSchema>(store: T[]) => {
     },
      update(handler:Handler<T>){
 
-      store = <T[]>handler(store) ;
+      let newData = <T>handler(store);
+
+      store.map(item => {
+        if(item.id === newData.id) 
+        item = newData
+      })
+      
       return  delayedBy(delaySec,store);
     },
      delete(handler:Handler<T>){
 
+      // let newData = <T>handler(store);
       store = <T[]>handler(store);
       return  delayedBy(delaySec,store);
     },
      insert  (handler:Handler<T>){
-      store = <T[]>handler(store);
-      return  delayedBy(delaySec,store);
+      let newData = <T>handler(store);
+      store = [...store, newData ];
+
+      return  delayedBy(delaySec,newData);
     }
   }
 }
@@ -60,17 +68,20 @@ const dbConnect= <T extends memoSchema>(store: T[]) => {
 let mockDB= dbConnect<Memo>(initStore);
 
 
-export const fetchMemoList = async () => { 
-  
-    return await mockDB.select((store)=>{
-      let re =  store
-      .filter(memo => !!memo.deleted == false)
-      .sort((a, b) => b.createdAt! - a.createdAt!)
+export const fetchMemoList = async () =>  await mockDB.select((store)=>{
+      let re;
+      try{  re =  store
+        .filter(memo => !!memo.deleted == false)
+        .sort((a, b) => b.createdAt! - a.createdAt!)
+      }catch(e){
+        console.error(e.trace)
+      }
+    
 
       return re;
-    })
+})
 
-}
+
 
 export const fetchDeletedMemoList = async () =>  await mockDB.select((store)=>{
   return store.filter(memo => !!memo.deleted)
@@ -80,17 +91,22 @@ export const fetchDeletedMemoList = async () =>  await mockDB.select((store)=>{
 
 export const fetchMemo = async(memoId: number) =>  await mockDB.select((store)=>{
 
-  console.log('api.fetchMemo: ', store)
-
   return store.find(m => m.id === memoId)
 })
   
 
 export const addMemo = async(memo: Memo) =>  await mockDB.insert((store)=>{
-  const lastMemo = store.sort((a, b) => b.id! - a.id!)[0];
-  memo.id = lastMemo ? lastMemo.id! + 1 : 1;
-  memo.createdAt = Date.now();
-  store = [...store, memo ];
+
+  let lastMemo; 
+  try{
+    lastMemo = store.sort((a, b) => b.id! - a.id!)[0];
+    memo.id = lastMemo ? lastMemo.id! + 1 : 1;
+    memo.createdAt = Date.now();
+  }catch(e){
+    console.log('[ERROR] API.addMEMO',e)
+  }
+
+
   return memo;
 })
 
@@ -105,28 +121,44 @@ export const addMemo = async(memo: Memo) =>  await mockDB.insert((store)=>{
 
 
 export const deleteMemo = async(memoId: number) =>  await mockDB.delete( (store) => {
-  return store.map(memo => {
-         if(memo.id === memoId ){
-            memo.deleted = true
-         }
-         return memo
+  let re;
+  try{
+      re = store.map(memo => {
+        if(memo.id === memoId ){
+          memo.deleted = true
+        }
+        return memo
       })
+  }catch(e){
+   console.error(e)
+ } 
+
+ return re;
+
 })
 
 
 export const restoreMemo = async(memoId: number) =>  await mockDB.update( (store) =>{
-  return store.map(memo => ({
-    ...memo,
-    deleted: memo.id === memoId ? false : memo.deleted,
-  }))
+
+
+  let re;
+  try{
+    // re = store.map(memo => ({
+    //   ...memo,
+    //   deleted: memo.id === memoId ? false : memo.deleted,
+    // }))
+     re = store.find(memo =>(memo.id === memoId))
+     if(re){
+       re.deleted = false
+     }
+    
+
+  }catch(e){
+
+    console.error(e.trace)
+  }
+
+  return re;
+
 })
 
-
-
-// let foo =  async function  foo   () {
-//   let re = await fetchMemoList()
-
-//   console.log('foo',re)
-// }
-
-// foo()

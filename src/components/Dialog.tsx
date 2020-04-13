@@ -13,7 +13,7 @@ interface Props {
 const Dialog = (props:Props) => {
   const {dialog, cancelDialog, confirmDialog} = props
 
-  console.log(`[Dialog]: ${dialog}`) 
+  console.log(`[Dialog]:`,dialog) 
   if (!dialog) return null 
 
   return (

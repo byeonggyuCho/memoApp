@@ -15,7 +15,7 @@ interface Props {
   apiCalling: boolean
 }
 
-const MemoListPage: React.FC<Props> = props => {
+const MemoListPage = (props:Props) => {
   const { memos, apiCalling, hasAddMemoBtn } = props;
   const hasMemos = memos.length > 0;
 
@@ -43,21 +43,23 @@ const MemoListPage: React.FC<Props> = props => {
 
 export default MemoListPage
 
-const MemoList: React.FC<Props> = ({memos}) => {
+const MemoList = ({memos}:Props) => {
   const memoTitle = (content: string): string => {
     return content.substr(0, 15);
   }
 
+  console.log('MemoList',memos)
+
   return (
     <List>
-      {memos.map((memo, idx) =>
+      {memos&&memos.map((memo, idx) =>
         <ListItem key={idx} first={idx === 0}>
           <Link to={`/memo/${memo.id}`}
             style={{
               textDecoration: 'none',
               color: '#000'
             }}>
-            {memoTitle(memo.content as string)}
+            {memoTitle(memo.content)}
           </Link>
         </ListItem>
       )}

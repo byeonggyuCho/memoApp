@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Switch, useRouteMatch,  Route,  withRouter } from 'react-router-dom';
-import DeletedMemoContainer from '../../containers/DeletedMemo';
+import DeletedMemoContainer from '../../containers/DeletedMemoContainer';
 
 
 const TrashRouter = () => {

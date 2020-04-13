@@ -1,9 +1,9 @@
 
 import * as React from 'react';
-import { Switch, RouteComponentProps, Route, withRouter } from 'react-router-dom';
+import { Switch,  Route, withRouter } from 'react-router-dom';
 import {useRouteMatch} from 'react-router'
-import MemoContainer from '../../containers/Memo'
-import AddMemoContainer from '../../containers/AddMemo'
+import MemoContainer from '../../containers/MemoContainer'
+import AddMemoContainer from '../../containers/AddMemoContainer'
 
 const MemoRouter = () => {
   const { url } = useRouteMatch();

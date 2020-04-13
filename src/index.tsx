@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import Root from './routes';
 import configureStore from './store/configureStore'
+import DialogContainer from './containers/DialogContainer'
 
 const store = configureStore();
 
@@ -11,6 +12,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
+     <DialogContainer/>
     <Root />, 
   </Provider>,
   document.getElementById('app')

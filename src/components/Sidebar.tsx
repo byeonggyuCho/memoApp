@@ -36,6 +36,6 @@ const linkStyle= {
   display: 'block',
 }
 
-export const SidebarBackButton: React.FC<SidebarBackButtonProps> = ({to}) => 
+export const SidebarBackButton = ({to}:SidebarBackButtonProps) => 
   <Link style={linkStyle}   to={to} >Back</Link>
   
