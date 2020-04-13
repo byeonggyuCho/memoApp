@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { List, ListItem } from '../components/List';
+import Skelton from '../components/Skelton'
 
 const sidebarStyle: React.CSSProperties = {
   width: '200px',
@@ -8,13 +10,48 @@ const sidebarStyle: React.CSSProperties = {
   borderRadius: '4px',
 }
 
-const Sidebar: React.FC = ({children}) => {
+interface SidebarProp {
+  to?: string
+  apiCalling?: boolean
+  title : string
+  list : listItem[] 
+
+}
+
+
+
+interface listItem {
+  content?: string
+  title: string
+  to : string
+}
+
+
+const Sidebar: React.FC<SidebarProp> = ({children,to = '/',title,apiCalling, list}) => {
+
+  // const contents = apiCalling ? <Skelton style={{margin: '10px'}} /> :  <MemoList {...props} />
+
+  const hasMemos = list.length>0
+
+
+
   return (
     <aside style={sidebarStyle}>
-      {children}
+      <SidebarBackButton to={to} />
+      <SidebarTitle>{title}</SidebarTitle> 
+      {hasMemos 
+        ? <MemoList list={list} />
+        : apiCalling 
+          ? <Skelton style={{margin: '10px'}} />
+          : null}
     </aside>  
   )
 }
+
+
+
+
+
 
 export default Sidebar;
 
@@ -39,3 +76,28 @@ const linkStyle= {
 export const SidebarBackButton = ({to}:SidebarBackButtonProps) => 
   <Link style={linkStyle}   to={to} >Back</Link>
   
+
+
+interface ListInterface {
+  list : listItem[]
+}
+
+const MemoList = ({list}:ListInterface) => {
+
+  // 제목 줄이기..
+  const shortTitle = (content: string): string => {
+    return content.substr(0, 15);
+  }
+  
+  return (
+    <List>
+      {list&&list.map((item, idx) =>
+        <ListItem key={idx} first={idx === 0}>
+          <Link to={item.to} style={{  textDecoration: 'none', color: '#000' }}>
+              { shortTitle(item.title)}
+          </Link>
+        </ListItem>
+      )}
+    </List>
+  )
+}

@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import HomeContainer from '../containers/HomeContainer';
-import MemoListContainer from '../containers/MemoListContainer';
+import HomePage from '../pages/home';
 import DeletedMemoListContainer from '../containers/DeletedMemoListContainer';
 import { history } from '../store/configureStore';
+import MemoListPage from '../pages/memo/MemoListPage'
 
 const Root: React.FC = () => (
   <ConnectedRouter history={history}>
     <Switch>
-      <Route path="/" component={HomeContainer} exact />
-      <Route path="/memo" component={MemoListContainer} />
+      <Route path="/" component={HomePage} exact />
+      <Route path="/memo" component={MemoListPage} />
       <Route path="/trash" component={DeletedMemoListContainer} />
       <Redirect path="*" to="/" />
     </Switch>

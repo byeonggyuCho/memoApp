@@ -1,13 +1,10 @@
-import  React, {useState,useEffect} from 'react'
+import  React, {useEffect} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
 import { Dispatch } from 'redux';
 import { fetchMemo, deleteMemo, initMemo } from '../actions/memo';
 import { RootState } from '../reducers';
 import { useParams } from 'react-router';
-import MemoPage from '../pages/memo/Memo';
-
-
-
+import MemoLayout from '../components/MemoLayout'
 
 const MemoContainer = function(){
 
@@ -33,11 +30,18 @@ const MemoContainer = function(){
   },[memoId])
 
   const deleteMemoHandler = (_id:number)=> dispatch(deleteMemo(_id));
+  const onClickHandler = () => deleteMemoHandler(memo.id!)
+  // return <MemoPage memo={memo} apiCalling={apiCalling} deleteMemo={deleteMemoHandler} />
 
-  
-  return <MemoPage memo={memo} apiCalling={apiCalling} deleteMemo={deleteMemoHandler} />
+  return (
+    <>
+      <MemoLayout memo={memo} apiCalling={apiCalling} onClick={onClickHandler} />
+    </>
+  )
+
   
 }
 
 
 export default MemoContainer;
+

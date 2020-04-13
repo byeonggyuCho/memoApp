@@ -12,7 +12,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-     <DialogContainer/>
+    <DialogContainer/>
     <Root />, 
   </Provider>,
   document.getElementById('app')

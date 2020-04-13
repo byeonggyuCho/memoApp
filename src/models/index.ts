@@ -1,5 +1,5 @@
 export interface Memo {
-    id?: number | undefined;
+    id?: number ;
     content: string ;
     createdAt?: number | undefined;
     deleted?: boolean | undefined;

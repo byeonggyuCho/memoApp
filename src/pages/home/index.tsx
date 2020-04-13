@@ -1,49 +1,17 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import Home from '../../components/Home'
 import Layout from '../../components/Layout';
-import Sidebar, { SidebarTitle } from '../../components/Sidebar';
-import Main from '../../components/Main';
-import AddMemoBtn from '../../components/AddMenuButton';
-import { List, ListItem } from '../../components/List';
-import { Memo } from '../../models';
+import SidebarContiner  from '../../containers/MainSidebarContainer';
 
-interface Props {
-  memos: Memo[]
-  deletedMemos: Memo[] 
-}
-
-const HomePage = function (props:Props) {
-  const { memos, deletedMemos } = props
-
-
-  // 메뉴 자동화.
-  const list = [
-    {to:'/memo', label:'메모', length: memos.length},
-    {to:'/trash',  label:'휴지통' , length: deletedMemos.length},
-  ]
-
-  const listItem = list.map((item,index)=>(
-    <ListItem key={index} first = {index==0}>
-      <Link to={item.to}> 
-        {item.label} ({item.length})
-      </Link>
-    </ListItem>
-  ))
+const HomePage = function () {
   
+
   return (
     <Layout>
-      <Sidebar>
-        <SidebarTitle>폴더</SidebarTitle>
-        <List>
-          {listItem}
-        </List>
-      </Sidebar>
-      <Main>
-        <div style={{
-          margin: '10px'
-        }}><AddMemoBtn /></div>
-      </Main>
+      <SidebarContiner/>
+      <Home/>
     </Layout>
+  
   );
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface DateStringProps {
-  timestamp: number;
+  timestamp?: number;
 }
 
 const DateString: React.FC<DateStringProps> = ({timestamp}) => {

@@ -44,10 +44,8 @@ const memoReducer = (state = initialState, action: MemoActionTypes): MemoState =
 
     case INIT_MEMO:
       let init_ater =  produce(state, draftState=>{
-          // console.log('INIT_MEMO_before', draftState)
           draftState.memo = initialState.memo
         })
-        console.log('INIT_MEMO_after', init_ater)
         return init_ater;
   
     case FETCH_MEMO_LIST.SUCCESS:
