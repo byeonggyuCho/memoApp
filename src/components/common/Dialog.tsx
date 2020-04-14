@@ -37,14 +37,10 @@ const Dialog = (props:Props) => {
         boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
         background: '#fff'
       }}>
-        <div style={{
-          marginBottom: '20px'
-        }}>
+        <div style={{  marginBottom: '20px'   }}>
           {dialog.text}
         </div>
-        <div style={{
-          textAlign: 'right'
-        }}>
+        <div style={{  textAlign: 'right' }}>
           {dialog.type === 'confirm' && <Button onClick={cancelDialog}>취소</Button>}
           <Button onClick={confirmDialog} primary>확인</Button>
         </div>

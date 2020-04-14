@@ -23,9 +23,11 @@ const AddMemoContainer = function (){
     setMemo(value);
   }
 
+
+  //todo: 필수값 체크 로직 및 알림.
   const handleClickSave = () => {
     const content = memo.trim();
-    if (!content) return;
+    if (!content) return  alert('메모를 입력하세요') ;
 
     dispatch(addMemo({content}));
   }

@@ -26,8 +26,7 @@ function* showToast$(action: ShowToastAction) {
 }
 
 
-function* handleFailure$(action: {payload: string}) {
-    const {payload} = action;
+function* handleFailure$({payload}: {payload: string}) {
 
     yield put({ type: SHOW_TOAST, payload })
 }

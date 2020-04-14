@@ -41,14 +41,6 @@ const DeletedMemoContainer = function(props:Props){
   }))
 
 
-  // componentWillMount() {
-  //   const {fetchDeletedMemo, match: {params: {id}}} = props;
-  //   const memoId = parseInt(id, 10)
-  //   if (!isNaN(memoId)) {
-  //     fetchDeletedMemo(memoId)
-  //   }
-  // }
-  
   const onRestore = (id: number) =>  dispatch(restoreMemo(id))
 
     return (

@@ -6,9 +6,10 @@ interface ButtonProps {
   primary?: boolean;
   onClick?(): void;
   disabled?: boolean;
+  children: string
 }
 
-const Button: React.FC<ButtonProps> = props => {
+const Button = (props:ButtonProps) => {
   const { to, children, primary, disabled, onClick } = props;
   const isLink = !!to;
 

@@ -1,6 +1,4 @@
 import { Memo } from '../models';
-import { rejects } from 'assert';
-import { memo } from 'react';
 
 let initStore: Memo[] = [
   { id: 5, content: '다섯번째 메모입니다.', createdAt: Date.now() -1 },
@@ -69,24 +67,24 @@ let mockDB= dbConnect<Memo>(initStore);
 
 
 export const fetchMemoList = async () =>  await mockDB.select((store)=>{
-      let re;
-      try{  
-        re =  store
-          .filter(memo => !!memo.deleted == false)
-          .sort((a, b) => b.createdAt! - a.createdAt!)
-      }catch(e){
-        console.error(e.trace)
-      }
-    
+    let re;
+    try{  
+      re =  store
+        .filter(memo => !!memo.deleted == false)
+        .sort((a, b) => b.createdAt! - a.createdAt!)
+    }catch(e){
+      console.error(e.trace)
+    }
 
-      return re;
+    return re;
 })
 
 
 
 export const fetchDeletedMemoList = async () =>  await mockDB.select((store)=>{
-  return store.filter(memo => !!memo.deleted)
-  .sort((a, b) => b.createdAt! - a.createdAt!)
+  return store
+      .filter(memo => !!memo.deleted)
+      .sort((a, b) => b.createdAt! - a.createdAt!)
 })
 
 

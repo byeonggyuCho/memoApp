@@ -27,12 +27,9 @@ interface listItem {
 }
 
 
-const Sidebar: React.FC<SidebarProp> = ({children,to = '/',title,apiCalling, list}) => {
-
-  // const contents = apiCalling ? <Skelton style={{margin: '10px'}} /> :  <MemoList {...props} />
+const Sidebar: React.FC<SidebarProp> = ({to = '/',title,apiCalling, list}) => {
 
   const hasMemos = list.length>0
-
 
 
   return (

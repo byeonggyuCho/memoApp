@@ -6,8 +6,6 @@
     - dialog위치를 수정해야한다. 어디서 렌더링해야할까????
 - toast가 안나옴..
 - 실패시 실패 알림 띄우기.
-- 폴더 구조 정리...
-    - page와 container component
 
 ## feat
 - 수정버튼 만들기
@@ -57,7 +55,6 @@
 4. webpack-dev-servers
     - 정적파일 생성 자동화
     - hot module
-    - 
 
 5. typesecipt
     - 정적타입 체크
@@ -134,8 +131,13 @@
 ### constainer
 액션 생성자 디스패처와 스토어가 연결된 컴포넌트를 만든다. 행동을 기술한 컴포넌트
 
-### pages
-컨테이너에 의해 전달받은 데이터를 출력한다. 상황에 따라 재활용하는 공통 컴포넌트는 compoenents에 넣기도 한다. 
+### pages  
+라우터를 기준으로 정리했다. 해당 컴포넌트들은 컨테이너 컴포넌트와 공통 컴포넌트로 페이지의 구조를 잡는 역할만 한다.
+
+### sagas
+각 비동기로직을 처리할 saga를 정의한다.  
+rootSaga에서 RootState를 export해서 각 컴포넌트에서 store에서 관리중이 state의 구조를 확인하도록 한다.  
+
 
 
 

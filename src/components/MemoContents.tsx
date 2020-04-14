@@ -14,7 +14,7 @@ import {  Redirect, useLocation, useRouteMatch } from 'react-router';
   
 
 
-const MemoList = function(){
+const MemoContents = function(){
     // const {apiCalling, hasAddMemoBtn } = props;
 
     const {pathname} = useLocation()
@@ -22,10 +22,6 @@ const MemoList = function(){
   
 
     const hasAddMemoBtn = pathname === `${url}`
-
-    console.log('MemoCon',hasAddMemoBtn)
-    console.log('MemoCon',`${url}/memo`)
-
 
     return (
         <Main>
@@ -38,4 +34,4 @@ const MemoList = function(){
 }
 
 
-export default MemoList;
+export default MemoContents;

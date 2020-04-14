@@ -26,8 +26,8 @@ const Addmemo = function(prop: AddmemoInterface){
 
     return (
         <>
-          <form>
-            <textarea  style={textBoxStype} placeholder="여기에 메모를 입력하세요"  onChange={handleChange} value={value} />
+            <form>
+                <textarea  style={textBoxStype} placeholder="여기에 메모를 입력하세요"  onChange={handleChange} value={value} />
             </form>
             <Button to="/memo">취소</Button>
             <Button  disabled={apiCalling} onClick={handleClickSave}>저장</Button>

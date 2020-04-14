@@ -10,16 +10,11 @@ export interface RootState {
   app : AppState
 }
 
-// const rootReducer = combineReducers({
-//   memo,
-//   app
-// })
 
 const createRootReducer = (history: History) => combineReducers({
   router: connectRouter(history),
   memo,
   app
-  // ... // rest of your reducers
 })
 
 

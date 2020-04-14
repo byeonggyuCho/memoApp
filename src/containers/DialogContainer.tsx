@@ -13,8 +13,6 @@ const DialogContainer = function(){
         }
     })
 
-    console.log('[DialogContainer] Render...')
-
     const cancelDialogHandler = () => dispatch(cancelDialog())
     const confirmDialogHandler = () => dispatch(confirmDialog())
 

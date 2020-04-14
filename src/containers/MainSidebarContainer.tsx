@@ -33,8 +33,6 @@ const SideBarContiner = function(){
     {to:'/trash', title:`휴지통 (${deletedMemos.length})`},
   ]
 
-  // to="/" title = "메모" list = {list} apiCalling={apiCalling}
-
     return (
         <>
              <Sidebar title="폴더" list={list}/>
