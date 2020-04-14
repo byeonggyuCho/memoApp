@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MemoListContainer from '../../containers/MemoListContainer'
+import MemoContents from '../../components/MemoContents'
 import SidebarContainer from '../../containers/MemoSidebarContainer'
 import Layout from '../../components/Layout'
 
@@ -10,7 +10,7 @@ const MemoListPage = () => {
     
     <Layout>
         <SidebarContainer />
-        <MemoListContainer/>
+        <MemoContents/>
     </Layout>
   );
 }

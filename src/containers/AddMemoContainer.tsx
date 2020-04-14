@@ -16,15 +16,15 @@ const AddMemoContainer = function (){
 
 
   // Container가 보관하는게 맞는지????
-  let [value, setValue]  = useState('');
+  let [memo, setMemo]  = useState('');
 
   const handleChange = function(evt: React.FormEvent<HTMLTextAreaElement>)  {
     const value:string = evt.currentTarget.value;
-    setValue(value);
+    setMemo(value);
   }
 
   const handleClickSave = () => {
-    const content = value.trim();
+    const content = memo.trim();
     if (!content) return;
 
     dispatch(addMemo({content}));
@@ -32,7 +32,7 @@ const AddMemoContainer = function (){
 
 
 
-  return <AddMemo value={value} handleChange={handleChange} handleClickSave = {handleClickSave}  apiCalling={apiCalling}  />
+  return <AddMemo value={memo} handleChange={handleChange} handleClickSave = {handleClickSave}  apiCalling={apiCalling}  />
 }
 
 

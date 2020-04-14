@@ -4,7 +4,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { fetchMemoList } from '../actions/memo';
 import { RootState } from '../reducers';
 import {  Redirect, useLocation, useRouteMatch } from 'react-router';
-import MemoList from '../components/MemoList'
+import MemoList from '../components/MemoContents'
 
 
 const MemoListContainer = function(){
@@ -14,16 +14,13 @@ const MemoListContainer = function(){
   const {isExact, url} = useRouteMatch();
 
 
-  const {memos, apiCalling} = useSelector((state:RootState)=>{
+  const {apiCalling} = useSelector((state:RootState)=>{
     return {
-      memos: state.memo.memos,
+      // memos: state.memo.memos,
       apiCalling: state.app.apiCalling
     }
   })
 
-  useEffect(()=>{
-    dispatch(fetchMemoList())
-  },[])
 
     // const hasMemos = memos.length > 0
     const isAddPath = pathname === `${url}/add`
@@ -33,7 +30,7 @@ const MemoListContainer = function(){
     // }
 
 
-    return <MemoList memos={memos} apiCalling={apiCalling} hasAddMemoBtn={!isAddPath}/>
+    return <MemoList  />
 }
 
 

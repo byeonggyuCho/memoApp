@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { fetchMemo, deleteMemo, initMemo } from '../actions/memo';
 import { RootState } from '../reducers';
 import { useParams } from 'react-router';
-import MemoLayout from '../components/MemoLayout'
+import Memo from '../components/Memo'
 
 const MemoContainer = function(){
 
@@ -35,7 +35,7 @@ const MemoContainer = function(){
 
   return (
     <>
-      <MemoLayout memo={memo} apiCalling={apiCalling} onClick={onClickHandler} />
+      <Memo memo={memo} apiCalling={apiCalling} onClick={onClickHandler} />
     </>
   )
 

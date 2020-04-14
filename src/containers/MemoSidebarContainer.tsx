@@ -16,8 +16,6 @@ const SideBarContiner = function(){
 
   // 현재 URL을 비교한다.
   const {url} = useRouteMatch();
-
-  // debugger;
   const isTrash = url ==='/trash'
 
 
@@ -25,19 +23,17 @@ const SideBarContiner = function(){
   const dispatch:Dispatch = useDispatch();
 
   useEffect(()=>{
-    const temp = {
-      liveAction : fetchMemoList,
-      deletedAction : fetchDeletedMemoList
+  
+    if(isTrash){
+      dispatch(fetchDeletedMemoList())
+    } else{
+      dispatch(fetchMemoList())
     }
   
-  
-    const action = isTrash ?  temp.deletedAction : temp.liveAction
-
-    dispatch(action())
-    // dispatch(fetchDeletedMemoList())
   },[isTrash])
 
   let { list } = useSelector((state: RootState)=>{
+    
 
     return {
       list: isTrash 
@@ -54,11 +50,11 @@ const SideBarContiner = function(){
   }))
 
 
-    return (
-        <>
-             <Sidebar title="메모" list={listItems}/>
-        </>
-    )
+  return (
+      <>
+            <Sidebar title={isTrash ? "Trash" : 'Memo'} list={listItems}/>
+      </>
+  )
 }
 
 export default SideBarContiner

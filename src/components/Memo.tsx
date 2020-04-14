@@ -1,7 +1,7 @@
 import  React from 'react'
-import Button from '../components/Button'
-import DateString from '../components/DateString';
-import Skelton from '../components/Skelton';
+import Button from './Button'
+import DateString from './DateString';
+import Skelton from './Skelton';
 import { Memo } from '../models';
 
 
@@ -14,7 +14,7 @@ interface Prop {
 }
 
 
-const MemoLayout = function({memo, apiCalling, onClick}:Prop){
+const Memo = function({memo, apiCalling, onClick}:Prop){
 
 
     const hasMemo = !apiCalling && memo
@@ -41,4 +41,4 @@ const MemoLayout = function({memo, apiCalling, onClick}:Prop){
 
 
 
-export default MemoLayout
+export default Memo

@@ -9,7 +9,7 @@ const TrashRouter = () => {
   return (
     <Switch>
       <Route path={`${url}/:id`} exact component={DeletedMemoContainer} />
-      <Route path={`${url}/`} exact component={() => <div>휴지통이 비었습니다.</div>} />
+      <Route path={`${url}/`} exact component={() => <div></div>} />
     </Switch>
   )
 }

@@ -16,4 +16,4 @@ const MemoRouter = () => {
   )
 }
 
-export default withRouter(MemoRouter);
+export default MemoRouter

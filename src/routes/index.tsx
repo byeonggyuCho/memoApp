@@ -5,13 +5,14 @@ import HomePage from '../pages/home';
 import DeletedMemoListContainer from '../containers/DeletedMemoListContainer';
 import { history } from '../store/configureStore';
 import MemoListPage from '../pages/memo/MemoListPage'
+import DeletedMemoListPage from '../pages/trash/DeletedMemoList'
 
 const Root: React.FC = () => (
   <ConnectedRouter history={history}>
     <Switch>
       <Route path="/" component={HomePage} exact />
       <Route path="/memo" component={MemoListPage} />
-      <Route path="/trash" component={DeletedMemoListContainer} />
+      <Route path="/trash" component={DeletedMemoListPage} />
       <Redirect path="*" to="/" />
     </Switch>
    

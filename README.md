@@ -6,7 +6,8 @@
     - dialog위치를 수정해야한다. 어디서 렌더링해야할까????
 - toast가 안나옴..
 - 실패시 실패 알림 띄우기.
-
+- 폴더 구조 정리...
+    - page와 container component
 
 ## feat
 - 수정버튼 만들기
