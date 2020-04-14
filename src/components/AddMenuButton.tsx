@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Button from './Button';
+import Button from './common/Button';
 
 const AddMemoBtn: React.FC = () => {
   return (

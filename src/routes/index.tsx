@@ -2,10 +2,9 @@ import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import HomePage from '../pages/home';
-import DeletedMemoListContainer from '../containers/DeletedMemoListContainer';
 import { history } from '../store/configureStore';
 import MemoListPage from '../pages/memo/MemoListPage'
-import DeletedMemoListPage from '../pages/trash/DeletedMemoList'
+import DeletedMemoListPage from '../pages/trash/DeletedMemoListPage'
 
 const Root: React.FC = () => (
   <ConnectedRouter history={history}>

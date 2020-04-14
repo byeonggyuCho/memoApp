@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { CancelDialogAction, ConfirmDialogAction } from '../actions/app';
-import * as models from '../models';
+import { CancelDialogAction, ConfirmDialogAction } from '../../actions/app';
+import * as models from '../../models';
 import Button from './Button';
 
 interface Props {

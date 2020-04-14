@@ -70,9 +70,10 @@ let mockDB= dbConnect<Memo>(initStore);
 
 export const fetchMemoList = async () =>  await mockDB.select((store)=>{
       let re;
-      try{  re =  store
-        .filter(memo => !!memo.deleted == false)
-        .sort((a, b) => b.createdAt! - a.createdAt!)
+      try{  
+        re =  store
+          .filter(memo => !!memo.deleted == false)
+          .sort((a, b) => b.createdAt! - a.createdAt!)
       }catch(e){
         console.error(e.trace)
       }

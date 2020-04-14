@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItem } from '../components/List';
-import Skelton from '../components/Skelton'
+import { List, ListItem } from './List';
+import Skelton from '../Skelton'
 
 const sidebarStyle: React.CSSProperties = {
   width: '200px',

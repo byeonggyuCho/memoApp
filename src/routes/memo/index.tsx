@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { Switch,  Route, withRouter } from 'react-router-dom';
+import { Switch,  Route } from 'react-router-dom';
 import {useRouteMatch} from 'react-router'
 import AddMemoPage from '../../pages/memo/AddMemoPage'
 import MemoPage from '../../pages/memo/MemoPage'

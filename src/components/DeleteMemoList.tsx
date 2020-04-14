@@ -1,5 +1,5 @@
 import React from 'react'
-import Main from '../components/Main'
+import Main from './common/Main'
 import TrashRouter from '../routes/trash'
 
 const DeleteMemoList = function(){

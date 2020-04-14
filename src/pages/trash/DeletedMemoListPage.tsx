@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '../../components/Layout';
-import MemoSidebarContainer from '../../containers/MemoSidebarContainer';
+import SidebarContainer from '../../containers/MemoSidebarContainer';
 import DeletedMemoList from '../../components/DeleteMemoList'
 
 
@@ -9,7 +9,7 @@ const DeletedMemoListPage = () => {
 
   return (
     <Layout>
-      <MemoSidebarContainer/>
+      <SidebarContainer/>
       <DeletedMemoList/>
     </Layout>
   );

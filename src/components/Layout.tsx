@@ -6,10 +6,10 @@ const style: React.CSSProperties = {
   margin: '10px',
 }
 
-const Layout: React.FC = (props) => {
+const Layout: React.FC = ({children}) => {
   return (
     <div style={style}>
-      {props.children}
+      {children}
     </div>
   )
 }

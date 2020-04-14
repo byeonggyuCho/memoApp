@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../reducers';
-import Dialog from '../components/Dialog';
+import Dialog from '../components/common/Dialog';
 import { confirmDialog, cancelDialog } from '../actions/app';
 
 

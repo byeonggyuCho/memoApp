@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Main from '../components/Main';
+import Main from './common/Main';
 import AddMemoBtn from '../components/AddMenuButton';
 
 // interface Props {
@@ -14,7 +14,9 @@ const Home = function () {
 
   return (
       <Main>
-        <div style={{ margin: '10px' }}>  <AddMemoBtn />  </div>
+        <div style={{ margin: '10px' }}>  
+          <AddMemoBtn />  
+        </div>
       </Main>
   );
 }

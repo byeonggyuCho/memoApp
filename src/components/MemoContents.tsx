@@ -1,5 +1,5 @@
 import React from 'react'
-import Main from './Main';
+import Main from './common/Main';
 import AddMemoBtn from './AddMenuButton';
 import MemoRouter from '../routes/memo';
 import { Memo } from '../models';
@@ -18,10 +18,10 @@ const MemoList = function(){
     // const {apiCalling, hasAddMemoBtn } = props;
 
     const {pathname} = useLocation()
-    const {isExact, url} = useRouteMatch();
+    const { url} = useRouteMatch();
   
 
-    const hasAddMemoBtn = pathname === `${url}/memo`
+    const hasAddMemoBtn = pathname === `${url}`
 
     console.log('MemoCon',hasAddMemoBtn)
     console.log('MemoCon',`${url}/memo`)
