@@ -1,47 +1,41 @@
-import  React, {useEffect} from 'react'
-import { useSelector, useDispatch} from 'react-redux'
-import { Dispatch } from 'redux';
-import { fetchMemo, deleteMemo, initMemo } from '../actions/memo';
+import React, {useState, useEffect} from 'react'
+import { useDispatch, useSelector} from 'react-redux'
+import { addMemo,updateMemo } from '../actions/memo';
+import { Dispatch, } from 'redux';
 import { RootState } from '../reducers';
-import { useParams } from 'react-router';
 import Memo from '../components/Memo'
 
-const MemoContainer = function(){
+const MemoContainer = function (){
 
-  const {id} = useParams()
-  const memoId = parseInt(id as string, 10)
-  const dispatch:Dispatch = useDispatch();
-
-  const {memo,apiCalling} = useSelector((state:RootState)=>{
-    return {
-      memo: state.memo.memo, // 여기서 오는 정보는 전체정보임...
-      apiCalling: state.app.apiCalling,
+  const dispatch: Dispatch = useDispatch();
+  const {apiCalling} = useSelector((state:RootState)=>(
+    {
+      apiCalling: state.app.apiCalling
     }
-  })
+  ))
 
-  useEffect(()=>{
-    if (!isNaN(memoId)) 
-      dispatch(fetchMemo(memoId))
-    
-    return () => {
-      // 초기화
-      dispatch(initMemo())
-    }
-  },[memoId])
 
-  const deleteMemoHandler = (_id:number)=> dispatch(deleteMemo(_id));
-  const onClickHandler = () => deleteMemoHandler(memo.id!)
-  // return <MemoPage memo={memo} apiCalling={apiCalling} deleteMemo={deleteMemoHandler} />
 
-  return (
-    <>
-      <Memo memo={memo} apiCalling={apiCalling} onClick={onClickHandler} />
-    </>
-  )
+  let [memo, setMemo]  = useState('');
 
-  
+  const handleChange = function(evt: React.FormEvent<HTMLTextAreaElement>)  {
+    const value:string = evt.currentTarget.value;
+    setMemo(value);
+  }
+
+
+  //todo: 필수값 체크 로직 및 알림.
+  const handleClickSave = () => {
+    const content = memo.trim();
+    if (!content) return  alert('메모를 입력하세요') ;
+
+    dispatch(addMemo({content}));
+  }
+
+
+
+  return <Memo value={memo} handleChange={handleChange} handleClickSave = {handleClickSave}  apiCalling={apiCalling}  />
 }
 
 
-export default MemoContainer;
-
+export default MemoContainer

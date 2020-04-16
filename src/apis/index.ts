@@ -44,7 +44,9 @@ const dbConnect= <T extends memoSchema>(store: T[]) => {
         item = newData
       })
       
-      return  delayedBy(delaySec,store);
+
+      // 반환값은 수정된 데이터
+      return  delayedBy(delaySec,newData);
     },
      delete(handler:Handler<T>){
 
@@ -108,6 +110,33 @@ export const addMemo = async(memo: Memo) =>  await mockDB.insert((store)=>{
 
   return memo;
 })
+
+export const updateMemo = async(edittedMemo: Memo) => await mockDB.update((store) => {
+
+
+  // id?: number ;
+  // content: string ;
+  // createdAt?: number | undefined;
+  // deleted?: boolean | undefined;
+
+  let result;
+  try {
+
+    result = store.find(memo =>{
+      if(memo.id === edittedMemo.id) {
+        memo.content = edittedMemo.content
+        memo.lastEditAt = Date.now()
+        return memo
+      }
+    })
+
+  }catch(e) {
+    console.error('[ERROR] api.updateMemo',e)
+  }
+
+  return result;
+})
+
 
 
 

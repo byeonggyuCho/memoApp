@@ -7,6 +7,7 @@ import {
   FETCH_DELETED_MEMO_LIST,
   FETCH_DELETED_MEMO,
   ADD_MEMO,
+  UPDATE_MEMO,
   DELETE_MEMO,
   RESTORE_MEMO,
   INIT_MEMO,
@@ -22,6 +23,7 @@ import {
   FetchMemoAction,
   FetchDeletedMemoAction,
   AddMemoAction,
+  UpdateMemoAction,
   DeleteMemoAction,
   RestoreMemoAction
 } from '../actions/memo';
@@ -35,10 +37,14 @@ export default function* memoSaga() {
     takeLatest(FETCH_MEMO.REQUEST, fetchMemo$),
     takeLatest(FETCH_DELETED_MEMO.REQUEST, fetchDeletedMemo$),
     takeLatest(ADD_MEMO.REQUEST, addMemo$),
+    takeLatest(UPDATE_MEMO.REQUEST, updateMemo$),
     takeLatest(DELETE_MEMO.REQUEST, deleteMemo$),
     takeLatest(RESTORE_MEMO.REQUEST, restoreMemo$),
   ])
 }
+
+
+
 
 function* fetchMemoList$() {
   try {
@@ -110,6 +116,32 @@ function* addMemo$(action: AddMemoAction) {
     yield put({ type: CLEAR_API_CALL_STATUS })
   }
 }
+
+function* updateMemo$(action: UpdateMemoAction) {
+  const {payload} = action;
+  if(!payload) return;
+
+  try{
+    const edittedMemo = yield call(api.updateMemo, payload)
+    yield put({ type: UPDATE_MEMO.SUCCESS, payload: edittedMemo })
+
+    console.log('updateSaga',edittedMemo)
+    yield put({ type: SHOW_DIALOG, payload: {
+      type: 'alert',
+      text: '메모가 수정되었습니다.'
+    }})
+
+    yield take(CONFIRM_DIALOG)
+    yield put(push(`/memo/${edittedMemo.id}`))
+
+  } catch(e) {
+    yield put({ type: UPDATE_MEMO.FAILURE, payload: '메모 수정에 실패했습니다.'})
+  } finally {
+    yield put({ type: CLEAR_API_CALL_STATUS})
+  }
+
+}
+
 
 function* deleteMemo$(action: DeleteMemoAction) {
   const { payload } = action;

@@ -5,7 +5,7 @@ import { fetchDeletedMemo, restoreMemo, initMemo} from '../actions/memo';
 import { FetchDeletedMemoAction, RestoreMemoAction} from '../actions/memo';
 import { RootState } from '../reducers';
 import {  useParams } from 'react-router';
-import DeletedMemo from '../pages/trash/DeletedMemoPage';
+import DeletedMemoPage from '../pages/trash/DeletedMemoPage';
 
 
 
@@ -44,7 +44,7 @@ const DeletedMemoContainer = function(props:Props){
   const onRestore = (id: number) =>  dispatch(restoreMemo(id))
 
     return (
-      <DeletedMemo memo={memo} onRestore={onRestore} />
+      <DeletedMemoPage memo={memo} onRestore={onRestore} />
     )
 }
 

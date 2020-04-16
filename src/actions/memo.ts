@@ -47,6 +47,12 @@ export const DELETE_MEMO = {
 }  as const
 
 
+export const UPDATE_MEMO = {
+  REQUEST : 'UPDATE_MEMO_REQUEST',
+  SUCCESS : 'UPDATE_MEMO_SUCCESS',
+  FAILURE : 'UPDATE_MEMO_FAILURE',
+}  as const
+
 
 export const RESTORE_MEMO = {
   REQUEST : 'RESTORE_MEMO_REQUEST',
@@ -119,15 +125,20 @@ export interface RestoreMemoAction {
   payload: number
 }
 
-export interface restoreMemoSuccessAction {
+export interface RestoreMemoSuccessAction {
   type: typeof RESTORE_MEMO.SUCCESS,
-  payload: Memo[]
+  payload: Memo
 }
 
 export interface IniteMemoAction {
   type: typeof INIT_MEMO
 }
 
+
+export interface UpdateMemoAction {
+  type: typeof UPDATE_MEMO.REQUEST,
+  payload: Memo
+}
 
 
 export const fetchMemoList = (): FetchMemoListAction => ({
@@ -160,6 +171,12 @@ export const deleteMemo = (id: number): DeleteMemoAction => ({
   payload: id
 })
 
+
+export const updateMemo = (memo: Memo): UpdateMemoAction => ({
+  type: UPDATE_MEMO.REQUEST,
+  payload: memo
+})
+
 export const restoreMemo = (id: number): RestoreMemoAction => ({
   type: RESTORE_MEMO.REQUEST,
   payload: id
@@ -177,7 +194,7 @@ type MemoActionTypes = FetchMemoListSuccessAction
   | FetchDeletedMemoSuccessAction
   | AddMemoSuccessAction
   | DeleteMemoSuccessAction
-  | restoreMemoSuccessAction
+  | RestoreMemoSuccessAction
   | IniteMemoAction
 
 

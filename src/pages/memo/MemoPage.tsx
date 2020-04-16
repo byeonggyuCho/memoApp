@@ -1,15 +1,18 @@
-  
+   
 import * as React from 'react';
 import MemoContainer from '../../containers/MemoContainer'
 
 
-const MemoPage = () => {
 
+
+const AddMemoPage = function () {
+
+  
   return (
-    <>
-     <MemoContainer/>
-    </>
-  );
+    <React.Fragment>
+      <MemoContainer/>
+    </React.Fragment>
+  )
 }
 
-export default MemoPage;
+export default AddMemoPage;

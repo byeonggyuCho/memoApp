@@ -1,44 +1,40 @@
-import  React from 'react'
+import React from 'react'
 import Button from './common/Button'
-import DateString from './DateString';
-import Skelton from './Skelton';
-import { Memo } from '../models';
 
 
-
-interface Prop {
-    memo: Memo
+interface AddmemoInterface {
     apiCalling : boolean
-    onClick: ()=>void
-    // children: React.ReactElement
+    handleChange : (e: React.FormEvent<HTMLTextAreaElement>)=>void
+    value :string
+    handleClickSave: ()=>void
+    isEdit? : boolean
 }
 
+const Addmemo = function(prop: AddmemoInterface){
 
-const Memo = function({memo, apiCalling, onClick}:Prop){
+
+    const  {apiCalling, handleChange, value, handleClickSave , isEdit} = prop
 
 
-    const hasMemo = !apiCalling && memo
-    const contents = hasMemo 
-                    ? memo.content
-                    :  <Skelton />
+    const textBoxStype = {
+        width: '97%',
+        height: '100px',
+        borderRadius: '4px',
+        border: '1px solid #ccc',
+        padding: '10px',
+    }
+
 
     return (
         <>
-            {
-                hasMemo &&  <Button  disabled={apiCalling}  onClick={onClick}   >삭제</Button>
-            }
-            <div style={{ borderTop: '1px solid #ddd', paddingTop: '10px' }}>
-                <div style={{ marginBottom: '15px' }}>
-                    {hasMemo  && <DateString timestamp={memo.createdAt} />}
-                    <div>
-                     {contents}
-                     </div>
-                </div>
-            </div>
-         </>
+            <form>
+                <textarea  style={textBoxStype} placeholder="메모를 입력하세요"  onChange={handleChange} value={value} />
+            </form>
+            <Button to="/memo">취소</Button>
+            <Button  disabled={apiCalling} onClick={handleClickSave}>{isEdit ? '수정' : '저장'}</Button>
+        </>
     )
 }
 
 
-
-export default Memo
+export default Addmemo;

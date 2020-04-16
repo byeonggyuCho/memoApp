@@ -79,11 +79,9 @@ const memoReducer = (state = initialState, action: MemoActionTypes): MemoState =
   
       return {
         ...state,
-        memos: action.payload.filter(memo=>{
-          return (!!memo.deleted === false)
-        }),
-        deletedMemos: action.payload.filter((memo,idx,arr)=>{
-          return (!!memo.deleted === true)
+        memos: [...state.memos, action.payload],
+        deletedMemos: state.deletedMemos.filter((memo)=>{
+          return (memo.id !== action.payload.id)
        })
       };
     default: 
