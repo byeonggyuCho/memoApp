@@ -1,19 +1,19 @@
 import { Memo } from '../models';
 
 let initStore: Memo[] = [
-  { id: 5, content: '다섯번째 메모입니다.', createdAt: Date.now() -1 },
-  { id: 4, content: '네번째 메모입니다.', createdAt: Date.now() -2},
-  { id: 3, content: '세번째 메모입니다.', createdAt: Date.now()-3},
-  { id: 2, content: '두번째 메모입니다.', createdAt: Date.now()- 4},
+  { id: 5, content: '다섯번째 메모입니다.', createdAt: Date.now() - 1 },
+  { id: 4, content: '네번째 메모입니다.', createdAt: Date.now() - 2 },
+  { id: 3, content: '세번째 메모입니다.', createdAt: Date.now() - 3 },
+  { id: 2, content: '두번째 메모입니다.', createdAt: Date.now() - 4 },
   { id: 1, content: '첫번재 메모입니다.', createdAt: Date.now() - 5 },
 ]
 
-const delayedBy = <TPayload>(sec:number,payload?:TPayload) => 
-   new Promise<TPayload>((resolve, reject)=> {
+const delayedBy = <TPayload>(sec: number, payload?: TPayload) =>
+  new Promise<TPayload>((resolve, reject) => {
 
     setTimeout(() => {
       resolve(payload)
-    }, sec*1000);
+    }, sec * 1);
   })
 
 
@@ -25,93 +25,93 @@ const delaySec = 0.5;
 // type Handler  = <T>(payload:T[]) => T | T[]
 
 interface Handler<T> {
-  (payload:T[]) : T | T[] | undefined
+  (payload: T[]): T | T[] | undefined
 }
 
 
-const dbConnect= <T extends memoSchema>(store: T[]) => {
-  
+const dbConnect = <T extends memoSchema>(store: T[]) => {
+
   return {
-     select(handler:Handler<T>){
-      return  delayedBy(delaySec, handler(store));
+    select(handler: Handler<T>) {
+      return delayedBy(delaySec, handler(store));
     },
-     update(handler:Handler<T>){
+    update(handler: Handler<T>) {
 
       let newData = <T>handler(store);
 
       store.map(item => {
-        if(item.id === newData.id) 
-        item = newData
+        if (item.id === newData.id)
+          item = newData
       })
-      
+
 
       // 반환값은 수정된 데이터
-      return  delayedBy(delaySec,newData);
+      return delayedBy(delaySec, newData);
     },
-     delete(handler:Handler<T>){
+    delete(handler: Handler<T>) {
 
       // let newData = <T>handler(store);
       store = <T[]>handler(store);
-      return  delayedBy(delaySec,store);
+      return delayedBy(delaySec, store);
     },
-     insert  (handler:Handler<T>){
+    insert(handler: Handler<T>) {
       let newData = <T>handler(store);
-      store = [...store, newData ];
+      store = [...store, newData];
 
-      return  delayedBy(delaySec,newData);
+      return delayedBy(delaySec, newData);
     }
   }
 }
 // 60662 5724 6687
 
 // todo: middleware로 delay처리해보기
-let mockDB= dbConnect<Memo>(initStore);
+let mockDB = dbConnect<Memo>(initStore);
 
 
-export const fetchMemoList = async () =>  await mockDB.select((store)=>{
-    let re;
-    try{  
-      re =  store
-        .filter(memo => !!memo.deleted == false)
-        .sort((a, b) => b.createdAt! - a.createdAt!)
-    }catch(e){
-      console.error(e.trace)
-    }
-
-    return re;
-})
-
-
-
-export const fetchDeletedMemoList = async () =>  await mockDB.select((store)=>{
-  return store
-      .filter(memo => !!memo.deleted)
+export const fetchMemoList = async () => await mockDB.select((store) => {
+  let re;
+  try {
+    re = store
+      .filter(memo => !!memo.deleted == false)
       .sort((a, b) => b.createdAt! - a.createdAt!)
+  } catch (e) {
+    console.error(e.trace)
+  }
+
+  return re;
 })
 
 
-export const fetchMemo = async(memoId: number) =>  await mockDB.select((store)=>{
+
+export const fetchDeletedMemoList = async () => await mockDB.select((store) => {
+  return store
+    .filter(memo => !!memo.deleted)
+    .sort((a, b) => b.createdAt! - a.createdAt!)
+})
+
+
+export const fetchMemo = async (memoId: number) => await mockDB.select((store) => {
 
   return store.find(m => m.id === memoId)
 })
-  
 
-export const addMemo = async(memo: Memo) =>  await mockDB.insert((store)=>{
 
-  let lastMemo; 
-  try{
+export const addMemo = async (memo: Memo) => await mockDB.insert((store) => {
+
+  let lastMemo;
+  try {
     lastMemo = store.sort((a, b) => b.id! - a.id!)[0];
     memo.id = lastMemo ? lastMemo.id! + 1 : 1;
     memo.createdAt = Date.now();
-  }catch(e){
-    console.log('[ERROR] API.addMEMO',e)
+  } catch (e) {
+    console.log('[ERROR] API.addMEMO', e)
   }
 
 
   return memo;
 })
 
-export const updateMemo = async(edittedMemo: Memo) => await mockDB.update((store) => {
+export const updateMemo = async (edittedMemo: Memo) => await mockDB.update((store) => {
 
 
   // id?: number ;
@@ -122,16 +122,16 @@ export const updateMemo = async(edittedMemo: Memo) => await mockDB.update((store
   let result;
   try {
 
-    result = store.find(memo =>{
-      if(memo.id === edittedMemo.id) {
+    result = store.find(memo => {
+      if (memo.id === edittedMemo.id) {
         memo.content = edittedMemo.content
         memo.lastEditAt = Date.now()
         return memo
       }
     })
 
-  }catch(e) {
-    console.error('[ERROR] api.updateMemo',e)
+  } catch (e) {
+    console.error('[ERROR] api.updateMemo', e)
   }
 
   return result;
@@ -148,40 +148,40 @@ export const updateMemo = async(edittedMemo: Memo) => await mockDB.update((store
 // });
 
 
-export const deleteMemo = async(memoId: number) =>  await mockDB.delete( (store) => {
+export const deleteMemo = async (memoId: number) => await mockDB.delete((store) => {
   let re;
-  try{
-      re = store.map(memo => {
-        if(memo.id === memoId ){
-          memo.deleted = true
-        }
-        return memo
-      })
-  }catch(e){
-   console.error(e)
- } 
+  try {
+    re = store.map(memo => {
+      if (memo.id === memoId) {
+        memo.deleted = true
+      }
+      return memo
+    })
+  } catch (e) {
+    console.error(e)
+  }
 
- return re;
+  return re;
 
 })
 
 
-export const restoreMemo = async(memoId: number) =>  await mockDB.update( (store) =>{
+export const restoreMemo = async (memoId: number) => await mockDB.update((store) => {
 
 
   let re;
-  try{
+  try {
     // re = store.map(memo => ({
     //   ...memo,
     //   deleted: memo.id === memoId ? false : memo.deleted,
     // }))
-     re = store.find(memo =>(memo.id === memoId))
-     if(re){
-       re.deleted = false
-     }
-    
+    re = store.find(memo => (memo.id === memoId))
+    if (re) {
+      re.deleted = false
+    }
 
-  }catch(e){
+
+  } catch (e) {
 
     console.error(e.trace)
   }

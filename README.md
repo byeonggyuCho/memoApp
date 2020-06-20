@@ -1,96 +1,96 @@
 # Memo App
 
-
-## debug
-- dialog가 어디서 렌더링해야할까????
-- toast가 안나옴..
-- 실패시 실패 알림 띄우기.
-
-## feat
-- 수정버튼 만들기
-- indexDB를 사용해서 서버리스 환경으로 만들어보기
+## intro
+typescript with redux를 위한 간단한 메모 어플리케이션입니다.  
+redux에 Typescript를 어떻게 적용해야할지를 중점적으로 학습하며 작업했습니다.   
+이 레포지토리의 내용은 [김정환블로그](http://jeonghwan-kim.github.io/dev/2019/06/25/react-ts.html)의 코드 내용을 참조했습니다.
 
 
-## spec
+![메인](./static/img/1.png)
+![리스트](./static/img/2.png)
+![삭제](./static/img/3.png)
+
+
+
+
+## todo
+1. dialog
+2. toast가 안나옴
+3. 실패시 실패 알림 띄우기.
+4. 수정버튼 만들기
+5. indexDB를 사용해서 서버리스 환경으로 만들어보기
+6. 리랜더링 최소화.
+    - 컴포넌트 구조 분석
+
+
+## Skill
 - typescript 
 - react 
 - redux
 - reudx-saga
 
 
-## todo
-- 컴포넌트 설계 분석
-- 더 나은 구조는 어떤 구조인가?
-- 리랜더링을 최소화하기 위해선???
-- 라우터 구조분석
-    - [참고](https://velopert.com/3417)
-
-
-## ref
-- [기본환경 셋팅](http://jeonghwan-kim.github.io/dev/2019/06/25/react-ts.html)
-- [라우터](http://jeonghwan-kim.github.io/dev/2019/07/08/react-router-ts.html)
-- [](http://jeonghwan-kim.github.io/dev/2019/07/15/react-redux-ts.html)
 
 
 
 ## 사용 라이브러리
 
-1. redux
-    - 상태관리 라이브러리
-    - 왜 상태관리 라이브러리를 썼는지?
-    - 다른 선택지가 있을텐데 왜 redux를??
-    - 다른 상태관리 라이브러리와 기능적 차이점은 알고 있는지?
+### 1. redux
+1. 이유
+    - 컴포넌트간 결합도를 낮추기 위해서
+    
+2. 비교 라이브러리(mobX)를 고려하지 않은 이유
 
-2. react-redux
-    - redux와 react 컴포넌트를 연결시키는 역할.
+### 2. react-redux
+1. 이유
+    - redux store와 react 컴포넌트를 연결
 
-3. redux-devtools-extention
-    - redux 개발 도구
+### 3. redux-devtools-extension
+1. 이유
+    - redux 디버깅
 
-4. webapck
-    - transpiler
+### 4. webpack
+1. 이유 
+    - 빌드
+    - 트랜스컴파일 (타입스크립트)
 
-4. webpack-dev-servers
-    - 정적파일 생성 자동화
-    - hot module
+### 4. webpack-dev-servers
+1. 이유
+    - 빌드 자동화
+    - hot module을 이용한 서버 리부팅.
 
-5. typescript
-    - 정적타입 체크
+### 5. typescript
+1. 이유
+    - 정적 타이핑을 통한 
 
-    - 타입스크립트를 적용할때 문제가 될 수 있는 부분은 뭐라고 생각하나?
-        1. 코드 복잡도 증가할 수 있다.
-            - 타입스크립트 문법이 어색할 경우 코드가 한눈에 읽히지 않을 수 있다.
-        2. 서브파티 라이브러리 호환성 
-            - 비인기 라이브러리의 type호환여부.
-        - 비동기 로직에 미들웨어를 연동해야할때 처리가 복잡해짐
-        - 데이터에 대한 처리 주도권을 상태관리라이브러리가 가지고 있는것이 구조적으로 얻는 이점이 있음
-        - 컴포넌트는 비지니스 로직에서 분리되는 것이 유지보수에 유리하다. 비지니스 로직이 수정된 경우에 일일이 수정을 해야하기 때문이다. 
-        - 이런 이유로 비지니스 로직을 redux 미들웨어에서 처리해서 로직을 컴포넌트로 부터 분리시키는것이 좋다.  
-        - 비동기호출은 사이드이펙트다. 사이드 이펙트를 컴포넌트로 부터 분리해서 한곳에 모아서 관리하는 것이 좋다.  
-        - 컴포넌트에 정의된 비지니스로직을 재활용하기 어렵다. 
-        - 비지니스 로직이 결합된 컴포넌트는 테스트가 어렵다.
-
-6. React-router-dom
-    - 프론트 라우팅
-    - 프론트 라우팅을 하는 이유가 뭐임?
-        - 서버사이드에서 하는것보다 경제적임.
-        - 라우트의 자세한 과정을 아는지?? 
-
-7. react-router
-    - 무슨 역할..?
-
-8. hooks
-    - 왜 hooks를 썼는지?
-    1. store에 dispatch하는것을 명시적으로 표현하는것이 더 낫다고 생각한다.
-    2. 선언적프로그래밍의 가독성과 재활용성
-
-    - hooks에서 componentDidMout와 componentWillMount를 구분해야할떄 어떻게 해야하나?????
+2. 타입스크립트를 적용할때 문제가 될 수 있는 부분
+    1. 코드 복잡도 증가
+        - 타입스크립트 문법이 어색할 경우 코드가 한눈에 읽히지 않을 수 있다.
+    2. 서브파티 라이브러리 호환성 
+        - 비인기 라이브러리의 type호환여부.
+    3. 도입 시점의 생산성 저하가 될 수 있음.
+        - 프로젝트 규모에 따라 변곡점이 있다. 이걸 감안해서 도입해야한다. 
 
 
-9. redux-saga
-    - 사이드 이펙트를 더 쉽게 관리하고 더 효과적으로 실행하며 더 쉽게 테스트하고 더 나은 에러처리를 할 수 있게 만드는 것이 목표
-    - 컴포넌트가 action을 발행하면 saga가 비동기로직을 처리하여 store에 disaptch를 함.
-    - action에 대한 리스너를 등록하고 비동기로직을 처리하는 미들웨어라고 생각하면 될듯.
+3. React-router-dom
+    - 브라우저에서 사용하는 리액트 라우터.
+    - 프론트 라우팅을 위함.
+    - 프론트 라우팅을 하는 이유
+        - 새로고침을 하게 되면 리소스를 다시 받아오게 된다.
+
+
+4. Functional Component & hooks
+    - hook: 함수형 컴포넌트를 사용하기 위해선 필수적으로 사용하게 됨(라이프사이클)
+    - 그렇다면 함수형 컴포넌트를 쓴 이유?
+        - 로직 재사용성
+        - 불변성으로 인한 직관적인 코드, 테스트 코드 작성 용이
+
+
+5. redux-saga
+    - Redux패턴에서 action을 순수함수로 돌려놓음.
+    - Action Creater 함수에 일관된 파라미터를 전달가능 (Thunk와 비교했을 때)
+    - 다양한 상황의 사이드 이펙트 관리에 효율적임
+    - 테스트가 쉬움(직접 경험x)
 
 
 ## 컴포넌트 설계
@@ -161,4 +161,11 @@ rootSaga에서 RootState를 export해서 각 컴포넌트에서 store에서 관�
 - rootSate 정의
 
 
-### 5.saga
+
+
+
+## Ref
+- [라우터1](https://velopert.com/3417)
+- [라우터2](http://jeonghwan-kim.github.io/dev/2019/07/08/react-router-ts.html)
+- [기본환경 셋팅](http://jeonghwan-kim.github.io/dev/2019/06/25/react-ts.html)
+- [redux-ts](http://jeonghwan-kim.github.io/dev/2019/07/15/react-redux-ts.html)

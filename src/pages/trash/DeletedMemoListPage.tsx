@@ -9,8 +9,8 @@ const DeletedMemoListPage = () => {
 
   return (
     <Layout>
-      <SidebarContainer/>
-      <DeletedMemoList/>
+      <SidebarContainer />
+      <DeletedMemoList />
     </Layout>
   );
 }

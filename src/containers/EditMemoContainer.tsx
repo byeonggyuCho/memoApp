@@ -1,54 +1,60 @@
-import React,{useEffect, useState}from 'react'
+import React, { useEffect, useState } from 'react'
 import Memo from '../components/Memo'
-import {RootState} from '../reducers'
-import {useDispatch, useSelector} from 'react-redux'
-import {Dispatch} from 'redux'
-import { fetchMemo, updateMemo, initMemo} from '../actions/memo'
-import { useParams} from 'react-router-dom'
+import { RootState } from '../reducers'
+import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch } from 'redux'
+import { fetchMemo, updateMemo, initMemo } from '../actions/memo'
+import { useParams } from 'react-router-dom'
 
-const EditMemoContainer = function(){
+const EditMemoContainer = function () {
 
-    const {id} = useParams();
+    const { id } = useParams();
     const numId = parseInt(id as string);
-    const dispatch:Dispatch = useDispatch();
+    const dispatch: Dispatch = useDispatch();
 
-    const {apiCalling,memo } = useSelector((store : RootState)=>{
+    const { apiCalling, memo } = useSelector((store: RootState) => {
         return {
-            apiCalling : store.app.apiCalling,
-            memo : store.memo.memo
+            apiCalling: store.app.apiCalling,
+            memo: store.memo.memo
         }
     })
-    
-    const [value,setValue] = useState(memo.content);
+
+    const [value, setValue] = useState(memo.content);
 
 
-    useEffect(()=>{
-        
+    useEffect(() => {
+
         dispatch(fetchMemo(numId))
 
         return () => {
             dispatch(initMemo())
         }
-    },[numId])
+    }, [numId])
 
 
-    
 
 
-    const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) =>{
-        const value:string = e.currentTarget.value;
+
+    const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+        const value: string = e.currentTarget.value;
         setValue(value);
     }
 
-    const handleClickUpdate = ()=>{
+    const handleClickUpdate = () => {
         dispatch(updateMemo({
-            id : numId,
+            id: numId,
             content: value
         }))
     }
 
     return (
-        <Memo  value = {value} isEdit={true}  apiCalling={apiCalling} handleChange={handleChange}  handleClickSave={handleClickUpdate}/>
+        <Memo
+            value={value}
+            isEdit={true}
+            apiCalling={apiCalling}
+            handleChange={handleChange}
+            handleClickSave={handleClickUpdate}
+        />
     )
 }
 
